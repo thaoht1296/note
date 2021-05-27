@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+            <TableRow>
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/back1"
+                    android:layout_height="50dp"
+                    android:layout_width="50dp"
+                    android:src="@drawable/ic_arrow_back"
+                    android:padding="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:textSize="26dp"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:padding="10dp"/>
+                <ImageView
+                    android:id="@+id/all_tags"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_bookmark"
+                    android:layout_width="50dp"
+                    android:padding="10dp"/>
+
+                <ImageView
+                    android:id="@+id/completed"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_calendar2"
+                    android:padding="10dp"
+                    android:layout_gravity="right" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_below="@+id/layout1"
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/ic_search"
+        android:hint="Tìm kiếm theo chủ đề"
+        android:drawablePadding="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/round_border"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pending_todos_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search"
+        android:layout_margin="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/no_pending_todo_section"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/pending_todos_icon"
+            android:src="@drawable/ic_pending_todos"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/pending_todo_icon_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/no_pending_todo_title"
+            android:text="Không có sẵn"
+            android:layout_gravity="center"
+            android:textSize="@dimen/no_pending_todo_title_size"
+            android:textColor="@color/ic_pending_todos_title_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTodo"
+        android:src="@drawable/ic__add_new_todo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/floating_button_add_todo_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

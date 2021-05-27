@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/pending_card_view_margin_left"
+    android:layout_marginRight="@dimen/pending_card_view_margin_right"
+    android:layout_marginTop="@dimen/pending_card_view_margin_top"
+    android:layout_marginBottom="@dimen/pending_card_view_margin_bottom"
+    android:elevation="@dimen/pending_card_view_elevation"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/each_pending_todo_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/pending_todo_title"
+            android:text="Title"
+            android:textSize="@dimen/pending_todo_title_text_size"
+            android:layout_marginLeft="@dimen/pending_todo_title_left_margin"
+            android:layout_marginBottom="@dimen/pending_todo_title_bottom_margin"
+            android:layout_marginRight="@dimen/pending_todo_title_right_margin"
+            android:layout_marginTop="@dimen/pending_todo_title_top_margin"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000C5D"/>
+
+        <TextView
+            android:id="@+id/pending_todo_content"
+            android:text="Content"
+            android:layout_marginLeft="@dimen/pending_todo_content_left_margin"
+            android:layout_marginBottom="@dimen/pending_todo_content_bottom_margin"
+            android:layout_marginRight="@dimen/pending_todo_content_right_margin"
+            android:layout_below="@+id/pending_todo_title"
+            android:textSize="@dimen/pending_todo_content_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ADADAD"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/todo_option_margin_right"
+            android:layout_marginTop="@dimen/todo_option_margin_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/make_completed"
+                android:src="@drawable/ic_done"
+                android:layout_marginRight="@dimen/completd_to_img_margin_right"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <ImageView
+                android:id="@+id/option"
+                android:src="@drawable/ic_threedots"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/pending_todo_info_section_margin_left"
+            android:layout_marginRight="@dimen/pending_todo_info_section_margin_right"
+            android:layout_marginBottom="@dimen/pending_todo_info_section_bottom_margin"
+            android:layout_below="@+id/pending_todo_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/todo_tag"
+                android:text="Programing"
+                android:textSize="@dimen/todo_info_section_text_size"
+                android:layout_marginRight="@dimen/todo_info_section_text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ADADAD"/>
+            <TextView
+                android:id="@+id/todo_date"
+                android:text="17 Nov, 2021"
+                android:textSize="@dimen/todo_info_section_text_size"
+                android:textColor="@color/bg_screen1"
+                android:layout_marginRight="@dimen/todo_info_section_margin_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/todo_time"
+                android:text="17:10 AM"
+                android:textSize="@dimen/todo_info_section_text_size"
+                android:textColor="@color/purple_200"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

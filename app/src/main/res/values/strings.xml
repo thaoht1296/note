@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ThaoNote</string>
+
+    <string name="tag_delete_dialog_msg">Nếu bạn xóa thì việc cần làm của bạn được liên kết với thẻ này cũng sẽ bị xóa. Bạn có thực sự muốn xóa không?</string>
+
+    <string-array name="theme_names">
+        <item>Default</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>Violete</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>Default</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>Violete</item>
+    </string-array>
+
+</resources>

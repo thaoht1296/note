@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.thaonote">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ThaoNote">
+        <activity android:name=".graph.PieChartActivity">
+
+        </activity>
+        <!-- activity chức năng -->
+        <activity android:name=".activity.TagActivity" />
+        <activity android:name=".activity.CompletedTodos" />
+        <activity android:name=".activity.AppSettings" />
+        <activity android:name=".activity.PendingActivity" />
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".graph.BarChartActivity"></activity> <!-- activity trang chu -->
+        <activity android:name=".MainActivity" /> <!-- activity đăng nhập, đăng kí, giới thiệu -->
+        <activity android:name=".activity.HomeActivity">
+
+        </activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".welcome.WelcomeActivity_1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".welcome.WelcomeActivity_2" />
+        <activity android:name=".welcome.WelcomeActivity_3" />
+        <activity android:name=".welcome.WelcomeActivity_4" />
+
+        <receiver
+            android:name=".activity.MyReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.thaonote.CUSTOM_INTENT"></action>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

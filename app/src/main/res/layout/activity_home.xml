@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="15dp"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="25dp"
+        android:text="Home Note"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/home_avatar"
+            android:src="@drawable/icon"
+            tools:ignore="MissingClass" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/home_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="22dp"
+                android:text="Hoàng Thị Thảo" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/home_editprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:background="@drawable/oval_cn_btn"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:gravity="center"
+            android:layout_gravity="center">
+            <TableRow>
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="Bạn là"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="Bạn đang làm"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:text="Bạn sẽ làm"
+                    android:textSize="20dp"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_margin="2dp">
+                <TextView
+                    android:id="@+id/home_ccao"
+                    android:layout_gravity="center"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:text="AI?"
+                    android:textColor="@color/colorAccentRed"/>
+
+                <TextView
+                    android:id="@+id/home_cnang"
+                    android:layout_gravity="center"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:text="GÌ?"
+                    android:textColor="@color/colorAccentRed"/>
+
+                <TextView
+                    android:id="@+id/home_nhommau"
+                    android:layout_gravity="center"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:text="GÌ?"
+                    android:textColor="@color/colorAccentRed"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:stretchColumns="1,2"
+        android:layout_gravity="center"
+        android:background="@drawable/oval_cn_nhacnho">
+        <TableRow>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_notification"
+                android:background="@drawable/oval_cn_nhacnho"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhắc nhở hàng ngày"
+                android:gravity="center"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="17:00PM"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginRight="20dp"/>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+            <TableRow>
+                <TextView
+                    android:id="@+id/home_pending"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Ghi chú"
+                    android:padding="10dp"
+                    android:drawableTop="@drawable/ic_star"
+                    android:background="@drawable/round_border_2"/>
+
+                <TextView
+                    android:id="@+id/home_tags"
+                    android:drawableTop="@drawable/ic_bookmark"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Chủ đề"
+                    android:padding="10dp"
+                    android:background="@drawable/round_border_2"/>
+
+                <TextView
+                    android:id="@+id/home_completes"
+                    android:drawableTop="@drawable/ic_calendar2"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Hoàn thành"
+                    android:padding="10dp"
+                    android:background="@drawable/round_border_2"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:padding="10dp">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+            <TableRow>
+                <TextView
+                    android:id="@+id/home_tke"
+                    android:drawableTop="@drawable/ic_graph"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Thống kê"
+                    android:padding="10dp"
+                    android:background="@drawable/round_border_2"/>
+
+                <TextView
+                    android:id="@+id/home_settings"
+                    android:drawableTop="@drawable/ic_setting_2"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Cài đặt"
+                    android:padding="10dp"
+                    android:background="@drawable/round_border_2"/>
+
+                <TextView
+                    android:id="@+id/home_logout"
+                    android:drawableTop="@drawable/ic_logout"
+                    android:layout_width="110dp"
+                    android:layout_height="80dp"
+                    android:drawablePadding="10dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:text="Thoát"
+                    android:padding="10dp"
+                    android:background="@drawable/round_border_2"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</LinearLayout>
