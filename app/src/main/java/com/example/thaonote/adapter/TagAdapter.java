@@ -19,19 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thaonote.R;
 import com.example.thaonote.activity.TagActivity;
 import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.model.Tags;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.thaonote.model.TagsModel;
 
 import java.util.ArrayList;
 
 
 public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
-    private ArrayList<Tags> tagsModels;
+    private ArrayList<TagsModel> tagsModelModels;
     private Context context;
     private TagDBHelper tagDBHelper;
 
-    public TagAdapter(ArrayList<Tags> tagsModels, Context context) {
-        this.tagsModels = tagsModels;
+    public TagAdapter(ArrayList<TagsModel> tagsModelModels, Context context) {
+        this.tagsModelModels = tagsModelModels;
         this.context = context;
     }
 
@@ -43,7 +42,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
 
     @Override
     public void onBindViewHolder(TagDataHolder holder, int position) {
-        final Tags tagsModel=tagsModels.get(position);
+        final TagsModel tagsModel= tagsModelModels.get(position);
         holder.tag_title.setText(tagsModel.getTagTitle());
         tagDBHelper=new TagDBHelper(context);
         holder.tag_option.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +72,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
 
     @Override
     public int getItemCount() {
-        return tagsModels.size();
+        return tagsModelModels.size();
     }
 
     public class TagDataHolder extends RecyclerView.ViewHolder{
@@ -130,7 +129,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
                     tagEditTitle.setError("Yêu cầu tiêu đề thẻ");
                 }else if(tagExists){
                     tagEditTitle.setError("Tiêu đề thẻ đã tồn tại");
-                }else if(tagDBHelper.saveTag(new Tags(tagID,getTagTitle))){
+                }else if(tagDBHelper.saveTag(new TagsModel(tagID,getTagTitle))){
                     Toast.makeText(context, "Lưu thành công!", Toast.LENGTH_SHORT).show();
                     context.startActivity(new Intent(context, TagActivity.class));
                 }
@@ -147,9 +146,9 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
     }
 
     //search filter
-    public void filterTags(ArrayList<Tags> newTagsModels){
-        tagsModels=new ArrayList<>();
-        tagsModels.addAll(newTagsModels);
+    public void filterTags(ArrayList<TagsModel> newTagsModelModels){
+        tagsModelModels =new ArrayList<>();
+        tagsModelModels.addAll(newTagsModelModels);
         notifyDataSetChanged();
     }
 }

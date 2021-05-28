@@ -56,18 +56,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.home_pending:
                 startActivity(new Intent(this, PendingActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_tags:
                 startActivity(new Intent(this, TagActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_completes:
                 startActivity(new Intent(this, CompletedTodos.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_tke:
                 startActivity(new Intent(this, PieChartActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_settings:
                 startActivity(new Intent(this, AppSettings.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_logout:
 //                AlertDialog.Builder builder=new AlertDialog.Builder(this);

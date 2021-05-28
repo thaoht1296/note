@@ -31,4 +31,21 @@ public class UserDBHelper {
         return (cursor.getCount()>0)?true:false;
     }
 
+    public void changepassword(String name, String password) {
+        SQLiteDatabase sqLiteDatabase = this.databaseHelper.getWritableDatabase();
+        String query = "UPDATE user SET password = " + password + " WHERE " + "username =?";
+        sqLiteDatabase.rawQuery(query, new String[]{name});
+    }
+
+    // fetch user id the database to the username
+    public int fetchUserID(String username){
+        SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
+        String query = "SELECT user_id FROM user " + " WHERE " + "username=?";
+        Cursor cursor=sqLiteDatabase.rawQuery(query,new String[]{username});
+        cursor.moveToFirst();
+        return cursor.getInt(cursor.getColumnIndex("user_id"));
+    }
+
+
+
 }

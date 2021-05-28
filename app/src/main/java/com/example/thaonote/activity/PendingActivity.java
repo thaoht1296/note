@@ -17,7 +17,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -32,20 +31,17 @@ import com.example.thaonote.R;
 import com.example.thaonote.adapter.PendingTodoAdapter;
 import com.example.thaonote.dbhelper.TagDBHelper;
 import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.PendingTodoModel;
+import com.example.thaonote.model.PendingModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 public class PendingActivity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView pendingTodos;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<PendingTodoModel> pendingTodoModels;
+    private ArrayList<PendingModel> pendingModels;
     private PendingTodoAdapter pendingTodoAdapter;
     private FloatingActionButton addNewTodo;
     private TagDBHelper tagDBHelper;
@@ -73,17 +69,17 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                 String txt = search.getText().toString();
                 txt = txt.toLowerCase();
                 if (!txt.equalsIgnoreCase("")) {
-                    ArrayList<PendingTodoModel> newPendingTodoModels=new ArrayList<>();
-                    for(PendingTodoModel pendingTodoModel:pendingTodoModels){
-                        String getTodoTitle=pendingTodoModel.getTodoTitle().toLowerCase();
-                        String getTodoContent=pendingTodoModel.getTodoContent().toLowerCase();
-                        String getTodoTag=pendingTodoModel.getTodoTag().toLowerCase();
+                    ArrayList<PendingModel> newPendingModels =new ArrayList<>();
+                    for(PendingModel pendingModel : pendingModels){
+                        String getTodoTitle= pendingModel.getTodoTitle().toLowerCase();
+                        String getTodoContent= pendingModel.getTodoContent().toLowerCase();
+                        String getTodoTag= pendingModel.getTodoTag().toLowerCase();
 
                         if(getTodoTitle.contains(txt) || getTodoContent.contains(txt) || getTodoTag.contains(txt)){
-                            newPendingTodoModels.add(pendingTodoModel);
+                            newPendingModels.add(pendingModel);
                         }
                     }
-                    pendingTodoAdapter.filterTodos(newPendingTodoModels);
+                    pendingTodoAdapter.filterTodos(newPendingModels);
                     pendingTodoAdapter.notifyDataSetChanged();
                 }
             }
@@ -100,9 +96,9 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
             linearLayout.setVisibility(View.VISIBLE);
             pendingTodos.setVisibility(View.GONE);
         }else{
-            pendingTodoModels=new ArrayList<>();
-            pendingTodoModels=todoDBHelper.fetchAllTodos();
-            pendingTodoAdapter=new PendingTodoAdapter(pendingTodoModels,this);
+            pendingModels =new ArrayList<>();
+            pendingModels =todoDBHelper.fetchAllTodos();
+            pendingTodoAdapter=new PendingTodoAdapter(pendingModels,this);
         }
         linearLayoutManager=new LinearLayoutManager(this);
         pendingTodos.setAdapter(pendingTodoAdapter);
@@ -126,13 +122,16 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.all_tags:
                 startActivity(new Intent(this, TagActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 //                Toast.makeText(this, "thaodebug", Toast.LENGTH_LONG).show();
                 break;
             case R.id.completed:
                 startActivity(new Intent(this,CompletedTodos.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.back1:
                 startActivity(new Intent(this, HomeActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
         }
     }
@@ -254,10 +253,13 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                 }else if(isTimeEmpty){
                     todoTime.setError("Chưa điền thời gian !");
                 }else if(todoDBHelper.addNewTodo(
-                        new PendingTodoModel(getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime))){
+                        new PendingModel(getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime))){
 
                     Toast.makeText(PendingActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(PendingActivity.this, PendingActivity.class));
+
+
+                    // notification
 
                     String [] time_spilt=getTodoDate.split("/");
                     int date_alarm = Integer.parseInt(time_spilt[0]);

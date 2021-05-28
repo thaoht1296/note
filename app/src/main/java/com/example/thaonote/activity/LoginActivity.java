@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 HomeActivity.class);
                         startActivity(loginIntent);
 
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     } else {
                         password.setText(null);
                         username.setText(null);
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent registerIntent = new Intent(LoginActivity.this,
                         RegisterActivity.class);
                 startActivity(registerIntent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
         }
     }

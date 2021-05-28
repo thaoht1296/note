@@ -4,13 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,14 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thaonote.R;
 import com.example.thaonote.adapter.CompletedTodoAdapter;
 import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.CompletedTodoModel;
+import com.example.thaonote.model.CompletedModel;
 
 import java.util.ArrayList;
 
 public class CompletedTodos extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView completedTodos;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<CompletedTodoModel> completedTodoModels;
+    private ArrayList<CompletedModel> completedModels;
     private CompletedTodoAdapter completedTodoAdapter;
     private LinearLayout linearLayout;
     private TodoDBHelper todoDBHelper;
@@ -53,17 +50,17 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
                 String txt = search.getText().toString();
                 txt = txt.toLowerCase();
                 if (!txt.equalsIgnoreCase("")) {
-                    ArrayList<CompletedTodoModel> newCompletedTodoModels=new ArrayList<>();
-                    for(CompletedTodoModel completedTodoModel:completedTodoModels){
-                        String getTodoTitle=completedTodoModel.getTodoTitle();
-                        String getTodoContent=completedTodoModel.getTodoContent();
-                        String getTodoTag=completedTodoModel.getTodoTag();
+                    ArrayList<CompletedModel> newCompletedModels =new ArrayList<>();
+                    for(CompletedModel completedModel : completedModels){
+                        String getTodoTitle= completedModel.getTodoTitle();
+                        String getTodoContent= completedModel.getTodoContent();
+                        String getTodoTag= completedModel.getTodoTag();
 
                         if(getTodoTitle.contains(txt) || getTodoContent.contains(txt) || getTodoTag.contains(txt)){
-                            newCompletedTodoModels.add(completedTodoModel);
+                            newCompletedModels.add(completedModel);
                         }
                     }
-                    completedTodoAdapter.filterCompletedTodos(newCompletedTodoModels);
+                    completedTodoAdapter.filterCompletedTodos(newCompletedModels);
                     completedTodoAdapter.notifyDataSetChanged();
                 }
             }
@@ -80,9 +77,9 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
         }else{
             linearLayout.setVisibility(View.GONE);
             completedTodos.setVisibility(View.VISIBLE);
-            completedTodoModels=new ArrayList<>();
-            completedTodoModels=todoDBHelper.fetchCompletedTodos();
-            completedTodoAdapter=new CompletedTodoAdapter(completedTodoModels,this);
+            completedModels =new ArrayList<>();
+            completedModels =todoDBHelper.fetchCompletedTodos();
+            completedTodoAdapter=new CompletedTodoAdapter(completedModels,this);
         }
         linearLayoutManager=new LinearLayoutManager(this);
         completedTodos.setAdapter(completedTodoAdapter);
@@ -102,9 +99,11 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.settings:
                 startActivity(new Intent(this,AppSettings.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.back1:
                 startActivity(new Intent(this, HomeActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
         }
     }

@@ -5,35 +5,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
 import com.example.thaonote.adapter.TagAdapter;
 import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.model.Tags;
+import com.example.thaonote.model.TagsModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TagActivity extends AppCompatActivity implements View.OnClickListener{
     private RecyclerView allTags;
-    private ArrayList<Tags> tagsModels;
+    private ArrayList<TagsModel> tagsModelModels;
     private TagAdapter tagAdapter;
     private GridLayoutManager gridLayoutManager;
     private FloatingActionButton fabAddTag;
@@ -59,14 +53,14 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
                 String txt = search.getText().toString();
                 txt = txt.toLowerCase();
                 if (!txt.equalsIgnoreCase("")) {
-                    ArrayList<Tags> newTagsModels = new ArrayList<>();
-                    for(Tags tagsModel:tagsModels){
+                    ArrayList<TagsModel> newTagsModelModels = new ArrayList<>();
+                    for(TagsModel tagsModel: tagsModelModels){
                         String tagTitle=tagsModel.getTagTitle().toLowerCase();
                         if(tagTitle.contains(txt)){
-                            newTagsModels.add(tagsModel);
+                            newTagsModelModels.add(tagsModel);
                         }
                     }
-                    tagAdapter.filterTags(newTagsModels);
+                    tagAdapter.filterTags(newTagsModelModels);
                     tagAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getApplicationContext(), "no search", Toast.LENGTH_SHORT).show();
@@ -85,21 +79,20 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
             allTags.setVisibility(View.GONE);
         }else{
             allTags.setVisibility(View.VISIBLE);
-            tagsModels = new ArrayList<>();
-            tagsModels = tagDBHelper.fetchTags();
-            tagAdapter=new TagAdapter(tagsModels,this);
+            tagsModelModels = new ArrayList<>();
+            tagsModelModels = tagDBHelper.fetchTags();
+            tagAdapter=new TagAdapter(tagsModelModels,this);
             linearLayout.setVisibility(View.GONE);
         }
         gridLayoutManager=new GridLayoutManager(this, 2);
         allTags.setAdapter(tagAdapter);
         allTags.setLayoutManager(gridLayoutManager);
-        fabAddTag=(FloatingActionButton)findViewById(R.id.fabAddTag);
+        fabAddTag = (FloatingActionButton)findViewById(R.id.fabAddTag);
 
 
         setting = findViewById(R.id.settings);
         back1 = findViewById(R.id.back1);
 
-//        searchView = findViewById(R.id.search);
         search = findViewById(R.id.search);
     }
 
@@ -112,9 +105,11 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
                 break;
             case R.id.settings:
                 startActivity(new Intent(this, AppSettings.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.back1:
                 startActivity(new Intent(this, HomeActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
             default:
                 return;
@@ -142,7 +137,7 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
                 }else if(tagExists){
                     tagTitle.setError("Tiêu đề đã tồn tại!");
                 }else {
-                    if(tagDBHelper.addNewTag(new Tags(getTagTitle))){
+                    if(tagDBHelper.addNewTag(new TagsModel(getTagTitle))){
                         Toast.makeText(TagActivity.this, "Thêm thẻ thành công", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(TagActivity.this,TagActivity.class));
                     }

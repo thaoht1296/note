@@ -16,6 +16,7 @@ import com.example.thaonote.R;
 import com.example.thaonote.dbhelper.UserDBHelper;
 import com.example.thaonote.model.User;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
@@ -27,7 +28,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView back1;
 
     private UserDBHelper userDBHelper;
-    private TextView test;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,8 +59,44 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(this, HomeActivity.class));
                 break;
             case R.id.pro_update:
+                String username1 = name.getText().toString().trim();
+                String password = pass.getText().toString().trim();
+                String newpassword = newpass.getText().toString().trim();
 
+                User user = new User(username1, password);
 
+                if(username1.isEmpty() || password.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Hãy nhập thông tin!", Toast.LENGTH_LONG).show();
+                }else{
+                    Boolean isExist = userDBHelper.getCheckLogin(username1, password);
+                    if(isExist){
+                        userDBHelper.changepassword(username1, newpassword);
+                        new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Cập nhật thông tin thành công")
+                                .setContentText("Nên cập nhật thông tin sáu tháng một lần!")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+
+                    } else {
+                        new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Cập nhật thông tin không thành công")
+                                .setContentText("Thông tin không chính xác! Vui lòng điền lại")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+                    }
+                }
                 break;
         }
     }

@@ -32,14 +32,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //creating tags table query
     private static final String CREATE_TAGS_TABLE="CREATE TABLE IF NOT EXISTS " + TABLE_TAG_NAME+"("+
             COL_TAG_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
-            COL_TAG_TITLE+" TEXT NOT NULL UNIQUE"+")";
+            COL_TAG_TITLE+" TEXT NOT NULL UNIQUE,"+
+            "tagUser INTEGER NOT NULL," +
+            "FOREIGN KEY (tagUser) " +  " REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE)";
 
     //creating todos table query
     private static final String CREATE_TODOS_TABLE="CREATE TABLE IF NOT EXISTS " + TABLE_TODO_NAME+"("+
             COL_TODO_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
-            COL_TODO_TITLE+" TEXT NOT NULL,"+COL_TODO_CONTENT+" TEXT NOT NULL,"+
-            COL_TODO_TAG +" INTEGER NOT NULL,"+COL_TODO_DATE+" TEXT NOT NULL,"+
-            COL_TODO_TIME+" TEXT NOT NULL,"+COL_TODO_STATUS+" TEXT NOT NULL DEFAULT " + COL_DEFAULT_STATUS+
+            COL_TODO_TITLE+" TEXT NOT NULL,"+
+            COL_TODO_CONTENT+" TEXT NOT NULL,"+
+            COL_TODO_TAG +" INTEGER NOT NULL,"+
+            COL_TODO_DATE+" TEXT NOT NULL,"+
+            COL_TODO_TIME+" TEXT NOT NULL,"+
+            COL_TODO_STATUS + " TEXT NOT NULL DEFAULT " +
+            COL_DEFAULT_STATUS +
             ",FOREIGN KEY("+COL_TODO_TAG+") REFERENCES "+TABLE_TAG_NAME+"("+COL_TAG_ID+") ON UPDATE CASCADE ON DELETE CASCADE"+")";
 
     //dropping tags table
@@ -52,15 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // table user
     private static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user(" +
            "user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-            "username TEXT NOT NULL," +
-            "password TEXT NOT NULL," +
-            "chieucao INTEGER," +
-            "cannang INTEGER," +
-            "nhommau TEXT," +
-            "email TEXT," +
-            "phone TEXT," +
-            "vitri TEXT," +
-            "img INTEGER)";
+            "username TEXT NOT NULL UNIQUE," +
+            "password TEXT NOT NULL)";
     private static final String DROP_USER_TABLE = "DROP TABLE IF EXISTS user";
 
 

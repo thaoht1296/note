@@ -27,22 +27,21 @@ import com.example.thaonote.activity.CompletedTodos;
 import com.example.thaonote.activity.PendingActivity;
 import com.example.thaonote.dbhelper.TagDBHelper;
 import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.PendingTodoModel;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.thaonote.model.PendingModel;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.PendingDataHolder>{
-    private ArrayList<PendingTodoModel> pendingTodoModels;
+    private ArrayList<PendingModel> pendingModels;
     private Context context;
     private String getTagTitleString;
     private TagDBHelper tagDBHelper;
     private TodoDBHelper todoDBHelper;
 
-    public PendingTodoAdapter(ArrayList<PendingTodoModel> pendingTodoModels, Context context) {
-        this.pendingTodoModels = pendingTodoModels;
+    public PendingTodoAdapter(ArrayList<PendingModel> pendingModels, Context context) {
+        this.pendingModels = pendingModels;
         this.context = context;
     }
 
@@ -55,12 +54,12 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
     @Override
     public void onBindViewHolder(PendingDataHolder holder, int position) {
         todoDBHelper=new TodoDBHelper(context);
-        final PendingTodoModel pendingTodoModel=pendingTodoModels.get(position);
-        holder.todoTitle.setText(pendingTodoModel.getTodoTitle());
-        holder.todoContent.setText(pendingTodoModel.getTodoContent());
-        holder.todoDate.setText(pendingTodoModel.getTodoDate());
-        holder.todoTag.setText(pendingTodoModel.getTodoTag());
-        holder.todoTime.setText(pendingTodoModel.getTodoTime());
+        final PendingModel pendingModel = pendingModels.get(position);
+        holder.todoTitle.setText(pendingModel.getTodoTitle());
+        holder.todoContent.setText(pendingModel.getTodoContent());
+        holder.todoDate.setText(pendingModel.getTodoDate());
+        holder.todoTag.setText(pendingModel.getTodoTag());
+        holder.todoTime.setText(pendingModel.getTodoTime());
         holder.option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,10 +71,10 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.edit:
-                                showDialogEdit(pendingTodoModel.getTodoID());
+                                showDialogEdit(pendingModel.getTodoID());
                                 return true;
                             case R.id.delete:
-                                showDeleteDialog(pendingTodoModel.getTodoID());
+                                showDeleteDialog(pendingModel.getTodoID());
                                 return true;
                             default:
                                 return false;
@@ -87,7 +86,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         holder.makeCompleted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCompletedDialog(pendingTodoModel.getTodoID());
+                showCompletedDialog(pendingModel.getTodoID());
             }
         });
     }
@@ -116,7 +115,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
 
     @Override
     public int getItemCount() {
-        return pendingTodoModels.size();
+        return pendingModels.size();
     }
 
     //showing edit dialog for editing todos according to the todoid
@@ -229,7 +228,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
                 }else if(isTimeEmpty){
                     todoTime.setError("Chưa điền thời gian !");
                 }else if(todoDBHelper.updateTodo(
-                        new PendingTodoModel(todoID,getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime)
+                        new PendingModel(todoID,getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime)
                 )){
                     Toast.makeText(context, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                     context.startActivity(new Intent(context,PendingActivity.class));
@@ -281,9 +280,9 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
     }
 
     //filter the search
-    public void filterTodos(ArrayList<PendingTodoModel> newPendingTodoModels){
-        pendingTodoModels=new ArrayList<>();
-        pendingTodoModels.addAll(newPendingTodoModels);
+    public void filterTodos(ArrayList<PendingModel> newPendingModels){
+        pendingModels =new ArrayList<>();
+        pendingModels.addAll(newPendingModels);
         notifyDataSetChanged();
     }
 }

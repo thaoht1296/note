@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
 import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.CompletedTodoModel;
+import com.example.thaonote.model.CompletedModel;
 
 import java.util.ArrayList;
 
 public class CompletedTodoAdapter extends RecyclerView.Adapter<CompletedTodoAdapter.CompletedDataHolder>{
-    private ArrayList<CompletedTodoModel> completedTodoModels;
+    private ArrayList<CompletedModel> completedModels;
     private Context context;
     private TodoDBHelper todoDBHelper;
 
-    public CompletedTodoAdapter(ArrayList<CompletedTodoModel> completedTodoModels, Context context) {
-        this.completedTodoModels = completedTodoModels;
+    public CompletedTodoAdapter(ArrayList<CompletedModel> completedModels, Context context) {
+        this.completedModels = completedModels;
         this.context = context;
     }
 
@@ -34,18 +34,18 @@ public class CompletedTodoAdapter extends RecyclerView.Adapter<CompletedTodoAdap
     @Override
     public void onBindViewHolder(CompletedDataHolder holder, int position) {
         todoDBHelper=new TodoDBHelper(context);
-        CompletedTodoModel completedTodoModel=completedTodoModels.get(position);
+        CompletedModel completedModel = completedModels.get(position);
         holder.todoTitle.setPaintFlags(holder.todoTitle.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.todoTitle.setText(completedTodoModel.getTodoTitle());
-        holder.todoContent.setText(completedTodoModel.getTodoContent());
-        holder.todoTag.setText(completedTodoModel.getTodoTag());
-        holder.todoDate.setText(completedTodoModel.getTodoDate());
-        holder.todoTime.setText(completedTodoModel.getTodoTime());
+        holder.todoTitle.setText(completedModel.getTodoTitle());
+        holder.todoContent.setText(completedModel.getTodoContent());
+        holder.todoTag.setText(completedModel.getTodoTag());
+        holder.todoDate.setText(completedModel.getTodoDate());
+        holder.todoTime.setText(completedModel.getTodoTime());
     }
 
     @Override
     public int getItemCount() {
-        return completedTodoModels.size();
+        return completedModels.size();
     }
 
     public class CompletedDataHolder extends RecyclerView.ViewHolder {
@@ -61,9 +61,9 @@ public class CompletedTodoAdapter extends RecyclerView.Adapter<CompletedTodoAdap
     }
 
     //filter the search
-    public void filterCompletedTodos(ArrayList<CompletedTodoModel> newCompletedTodoModels){
-        completedTodoModels=new ArrayList<>();
-        completedTodoModels.addAll(newCompletedTodoModels);
+    public void filterCompletedTodos(ArrayList<CompletedModel> newCompletedModels){
+        completedModels =new ArrayList<>();
+        completedModels.addAll(newCompletedModels);
         notifyDataSetChanged();
     }
 }

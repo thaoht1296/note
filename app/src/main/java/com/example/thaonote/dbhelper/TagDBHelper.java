@@ -4,10 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.nfc.Tag;
-import android.widget.LinearLayout;
 
-import com.example.thaonote.model.Tags;
+import com.example.thaonote.model.TagsModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +20,11 @@ public class TagDBHelper {
     }
 
     //add new tags into the database
-    public boolean addNewTag(Tags tagsModel){
+    public boolean addNewTag(TagsModel tagsModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put(DatabaseHelper.COL_TAG_TITLE,tagsModel.getTagTitle());
+        contentValues.put("tagUser", tagsModel.getTagUser());
         sqLiteDatabase.insert(DatabaseHelper.TABLE_TAG_NAME,null,contentValues);
         sqLiteDatabase.close();
         return true;
@@ -49,20 +48,20 @@ public class TagDBHelper {
     }
 
     //fetch all the tags from the database
-    public ArrayList<Tags> fetchTags(){
+    public ArrayList<TagsModel> fetchTags(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
-        ArrayList<Tags> tagsModels=new ArrayList<>();
+        ArrayList<TagsModel> tagsModelModels =new ArrayList<>();
         String query="SELECT * FROM " + DatabaseHelper.TABLE_TAG_NAME + " ORDER BY " + DatabaseHelper.COL_TAG_ID + " DESC";
         Cursor cursor=sqLiteDatabase.rawQuery(query,null);
         while (cursor.moveToNext()){
-            Tags tagsModel=new Tags();
+            TagsModel tagsModel=new TagsModel();
             tagsModel.setTagID(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_TAG_ID)));
             tagsModel.setTagTitle(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TAG_TITLE)));
-            tagsModels.add(tagsModel);
+            tagsModelModels.add(tagsModel);
         }
         cursor.close();
         sqLiteDatabase.close();
-        return tagsModels;
+        return tagsModelModels;
     }
 
     //delete tag from the database according to the id
@@ -76,7 +75,7 @@ public class TagDBHelper {
     }
 
     //update tag from the database according to the tag id
-    public boolean saveTag(Tags tagsModel){
+    public boolean saveTag(TagsModel tagsModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put(DatabaseHelper.COL_TAG_TITLE,tagsModel.getTagTitle());
@@ -127,8 +126,8 @@ public class TagDBHelper {
     }
 
 
-    public List<Tags> searchByTitle(String key){
-        List<Tags> listTag = new ArrayList<>();
+    public List<TagsModel> searchByTitle(String key){
+        List<TagsModel> listTag = new ArrayList<>();
         String whereClause = "name like ?";
         String[] whereArgs = {"%"+key+"%"};
         SQLiteDatabase sqLiteDatabase = this.databaseHelper.getReadableDatabase();
@@ -137,7 +136,7 @@ public class TagDBHelper {
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String title = cursor.getString(1);
-            listTag.add(new Tags(id, title));
+            listTag.add(new TagsModel(id, title));
         }
         return listTag;
     }

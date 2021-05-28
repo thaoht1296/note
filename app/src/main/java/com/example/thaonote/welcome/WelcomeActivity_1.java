@@ -40,6 +40,9 @@ public class WelcomeActivity_1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity_1.this, LoginActivity.class));
+
+                // animation slide activity
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 
@@ -47,6 +50,8 @@ public class WelcomeActivity_1 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeActivity_1.this, WelcomeActivity_2.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+
             }
         });
     }

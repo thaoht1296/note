@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.thaonote.model.CompletedTodoModel;
-import com.example.thaonote.model.PendingTodoModel;
+import com.example.thaonote.model.CompletedModel;
+import com.example.thaonote.model.PendingModel;
 
 import java.util.ArrayList;
 
@@ -21,14 +21,14 @@ public class TodoDBHelper {
     }
 
     //add new todos into the database
-    public boolean addNewTodo(PendingTodoModel pendingTodoModel){
+    public boolean addNewTodo(PendingModel pendingModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
-        contentValues.put(DatabaseHelper.COL_TODO_TITLE,pendingTodoModel.getTodoTitle());
-        contentValues.put(DatabaseHelper.COL_TODO_CONTENT,pendingTodoModel.getTodoContent());
-        contentValues.put(DatabaseHelper.COL_TODO_TAG,pendingTodoModel.getTodoTag());
-        contentValues.put(DatabaseHelper.COL_TODO_DATE,pendingTodoModel.getTodoDate());
-        contentValues.put(DatabaseHelper.COL_TODO_TIME,pendingTodoModel.getTodoTime());
+        contentValues.put(DatabaseHelper.COL_TODO_TITLE, pendingModel.getTodoTitle());
+        contentValues.put(DatabaseHelper.COL_TODO_CONTENT, pendingModel.getTodoContent());
+        contentValues.put(DatabaseHelper.COL_TODO_TAG, pendingModel.getTodoTag());
+        contentValues.put(DatabaseHelper.COL_TODO_DATE, pendingModel.getTodoDate());
+        contentValues.put(DatabaseHelper.COL_TODO_TIME, pendingModel.getTodoTime());
         contentValues.put(DatabaseHelper.COL_TODO_STATUS,DatabaseHelper.COL_DEFAULT_STATUS);
         sqLiteDatabase.insert(DatabaseHelper.TABLE_TODO_NAME,null,contentValues);
         sqLiteDatabase.close();
@@ -52,60 +52,60 @@ public class TodoDBHelper {
     }
 
     //fetch all the todos from the database
-    public ArrayList<PendingTodoModel> fetchAllTodos(){
+    public ArrayList<PendingModel> fetchAllTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
-        ArrayList<PendingTodoModel> pendingTodoModels=new ArrayList<>();
+        ArrayList<PendingModel> pendingModels =new ArrayList<>();
         String query="SELECT * FROM " + DatabaseHelper.TABLE_TODO_NAME+" INNER JOIN " + DatabaseHelper.TABLE_TAG_NAME+" ON " + DatabaseHelper.TABLE_TODO_NAME+"."+DatabaseHelper.COL_TODO_TAG+"="+
                 DatabaseHelper.TABLE_TAG_NAME+"."+DatabaseHelper.COL_TAG_ID + " WHERE " + DatabaseHelper.COL_TODO_STATUS+"=? ORDER BY " + DatabaseHelper.TABLE_TODO_NAME+"."+DatabaseHelper.COL_TODO_ID + " ASC";
         Cursor cursor=sqLiteDatabase.rawQuery(query,new String[]{DatabaseHelper.COL_DEFAULT_STATUS});
         while (cursor.moveToNext()){
-            PendingTodoModel pendingTodoModel=new PendingTodoModel();
-            pendingTodoModel.setTodoID(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_TODO_ID)));
-            pendingTodoModel.setTodoTitle(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TITLE)));
-            pendingTodoModel.setTodoContent(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_CONTENT)));
-            pendingTodoModel.setTodoTag(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TAG_TITLE)));
-            pendingTodoModel.setTodoDate(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_DATE)));
-            pendingTodoModel.setTodoTime(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TIME)));
-            pendingTodoModels.add(pendingTodoModel);
+            PendingModel pendingModel =new PendingModel();
+            pendingModel.setTodoID(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_TODO_ID)));
+            pendingModel.setTodoTitle(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TITLE)));
+            pendingModel.setTodoContent(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_CONTENT)));
+            pendingModel.setTodoTag(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TAG_TITLE)));
+            pendingModel.setTodoDate(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_DATE)));
+            pendingModel.setTodoTime(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TIME)));
+            pendingModels.add(pendingModel);
         }
         cursor.close();
         sqLiteDatabase.close();
-        return pendingTodoModels;
+        return pendingModels;
     }
 
     //fetch all the completed todos from the database
-    public ArrayList<CompletedTodoModel> fetchCompletedTodos(){
+    public ArrayList<CompletedModel> fetchCompletedTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
-        ArrayList<CompletedTodoModel> completedTodoModels=new ArrayList<>();
+        ArrayList<CompletedModel> completedModels =new ArrayList<>();
         String query="SELECT * FROM " + DatabaseHelper.TABLE_TODO_NAME+" INNER JOIN " + DatabaseHelper.TABLE_TAG_NAME+" ON " + DatabaseHelper.TABLE_TODO_NAME+"."+DatabaseHelper.COL_TODO_TAG+"="+
                 DatabaseHelper.TABLE_TAG_NAME+"."+DatabaseHelper.COL_TAG_ID + " WHERE " + DatabaseHelper.COL_TODO_STATUS+"=? ORDER BY " + DatabaseHelper.TABLE_TODO_NAME+"."+DatabaseHelper.COL_TODO_ID + " DESC";
         Cursor cursor=sqLiteDatabase.rawQuery(query,new String[]{DatabaseHelper.COL_STATUS_COMPLETED});
         while (cursor.moveToNext()){
-            CompletedTodoModel completedTodoModel=new CompletedTodoModel();
-            completedTodoModel.setTodoID(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_TODO_ID)));
-            completedTodoModel.setTodoTitle(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TITLE)));
-            completedTodoModel.setTodoContent(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_CONTENT)));
-            completedTodoModel.setTodoTag(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TAG_TITLE)));
-            completedTodoModel.setTodoDate(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_DATE)));
-            completedTodoModel.setTodoTime(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TIME)));
-            completedTodoModels.add(completedTodoModel);
+            CompletedModel completedModel =new CompletedModel();
+            completedModel.setTodoID(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COL_TODO_ID)));
+            completedModel.setTodoTitle(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TITLE)));
+            completedModel.setTodoContent(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_CONTENT)));
+            completedModel.setTodoTag(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TAG_TITLE)));
+            completedModel.setTodoDate(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_DATE)));
+            completedModel.setTodoTime(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_TODO_TIME)));
+            completedModels.add(completedModel);
         }
         cursor.close();
         sqLiteDatabase.close();
-        return completedTodoModels;
+        return completedModels;
     }
 
     //update todos according to the todos id
-    public boolean updateTodo(PendingTodoModel pendingTodoModel){
+    public boolean updateTodo(PendingModel pendingModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
-        contentValues.put(DatabaseHelper.COL_TODO_TITLE,pendingTodoModel.getTodoTitle());
-        contentValues.put(DatabaseHelper.COL_TODO_CONTENT,pendingTodoModel.getTodoContent());
-        contentValues.put(DatabaseHelper.COL_TODO_TAG,pendingTodoModel.getTodoTag());
-        contentValues.put(DatabaseHelper.COL_TODO_DATE,pendingTodoModel.getTodoDate());
-        contentValues.put(DatabaseHelper.COL_TODO_TIME,pendingTodoModel.getTodoTime());
+        contentValues.put(DatabaseHelper.COL_TODO_TITLE, pendingModel.getTodoTitle());
+        contentValues.put(DatabaseHelper.COL_TODO_CONTENT, pendingModel.getTodoContent());
+        contentValues.put(DatabaseHelper.COL_TODO_TAG, pendingModel.getTodoTag());
+        contentValues.put(DatabaseHelper.COL_TODO_DATE, pendingModel.getTodoDate());
+        contentValues.put(DatabaseHelper.COL_TODO_TIME, pendingModel.getTodoTime());
         contentValues.put(DatabaseHelper.COL_TODO_STATUS,DatabaseHelper.COL_DEFAULT_STATUS);
-        sqLiteDatabase.update(DatabaseHelper.TABLE_TODO_NAME,contentValues,DatabaseHelper.COL_TODO_ID+"=?",new String[]{String.valueOf(pendingTodoModel.getTodoID())});
+        sqLiteDatabase.update(DatabaseHelper.TABLE_TODO_NAME,contentValues,DatabaseHelper.COL_TODO_ID+"=?",new String[]{String.valueOf(pendingModel.getTodoID())});
         sqLiteDatabase.close();
         return true;
     }

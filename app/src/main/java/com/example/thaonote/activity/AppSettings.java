@@ -26,6 +26,7 @@ public class AppSettings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AppSettings.this, HomeActivity.class);
                 startActivity(new Intent(intent));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 finish();
             }
         });
