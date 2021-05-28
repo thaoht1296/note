@@ -12,13 +12,12 @@
         android:id="@+id/each_pending_todo_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/white">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/pending_todo_title"
             android:text="Title"
-            android:textSize="@dimen/pending_todo_title_text_size"
+            android:textSize="20dp"
             android:layout_marginLeft="@dimen/pending_todo_title_left_margin"
             android:layout_marginBottom="@dimen/pending_todo_title_bottom_margin"
             android:layout_marginRight="@dimen/pending_todo_title_right_margin"
@@ -38,7 +37,7 @@
             android:textSize="@dimen/pending_todo_content_text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ADADAD"/>
+            android:textColor="@color/purple"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -57,7 +56,7 @@
 
             <ImageView
                 android:id="@+id/option"
-                android:src="@drawable/ic_threedots"
+                android:src="@drawable/ic_article"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 />
@@ -79,12 +78,12 @@
                 android:layout_marginRight="@dimen/todo_info_section_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ADADAD"/>
+                android:textColor="@color/purple"/>
             <TextView
                 android:id="@+id/todo_date"
                 android:text="17 Nov, 2021"
                 android:textSize="@dimen/todo_info_section_text_size"
-                android:textColor="@color/bg_screen1"
+                android:textColor="@color/pink4"
                 android:layout_marginRight="@dimen/todo_info_section_margin_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -92,7 +91,7 @@
                 android:id="@+id/todo_time"
                 android:text="17:10 AM"
                 android:textSize="@dimen/todo_info_section_text_size"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/pink4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

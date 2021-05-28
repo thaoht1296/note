@@ -189,7 +189,6 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
         final EditText todoDate=view.findViewById(R.id.todo_date);
@@ -201,12 +200,6 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(PendingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-//                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                        calendar.set(Calendar.YEAR,i);
-//                        calendar.set(Calendar.MONTH,i1);
-//                        calendar.set(Calendar.DAY_OF_MONTH,i2);
-//                        todoDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime()));
-//                    }
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         todoDate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
                     }
@@ -264,7 +257,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                         new PendingTodoModel(getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime))){
 
                     Toast.makeText(PendingActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(PendingActivity.this, PendingActivity.class));
+                    startActivity(new Intent(PendingActivity.this, PendingActivity.class));
 
                     String [] time_spilt=getTodoDate.split("/");
                     int date_alarm = Integer.parseInt(time_spilt[0]);
@@ -288,8 +281,6 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(PendingActivity.this,
                             0, intent, 0);
                     am.set(AlarmManager.RTC_WAKEUP, calendar_alarm.getTimeInMillis(), pendingIntent);
-                    finish();
-
                 }
             }
         });
@@ -301,6 +292,5 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         });
         builder.create().show();
     }
-
 
 }

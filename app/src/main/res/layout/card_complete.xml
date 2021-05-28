@@ -11,7 +11,6 @@
         android:id="@+id/each_completed_todo_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bt1_ttcn"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
@@ -25,7 +24,8 @@
             android:layout_marginRight="@dimen/completed_todo_title_right_margin"
             android:layout_marginTop="@dimen/completed_todo_title_top_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000C5D"/>
 
         <TextView
             android:id="@+id/completed_todo_content"
@@ -36,7 +36,8 @@
             android:layout_below="@+id/completed_todo_title"
             android:textSize="@dimen/completed_todo_content_text_size"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -53,13 +54,14 @@
                 android:textSize="@dimen/todo_info_section_text_size"
                 android:layout_marginRight="@dimen/todo_info_section_text_size"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple"/>
 
             <TextView
                 android:id="@+id/todo_date"
                 android:text="17 Nov, 2021"
                 android:textSize="@dimen/todo_info_section_text_size"
-                android:textColor="@color/bg_screen1"
+                android:textColor="@color/pink4"
                 android:layout_marginRight="@dimen/todo_info_section_margin_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -67,7 +69,7 @@
             <TextView
                 android:id="@+id/todo_time"
                 android:text="17:10 AM"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/pink4"
                 android:textSize="@dimen/todo_info_section_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

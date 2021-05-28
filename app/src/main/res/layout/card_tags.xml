@@ -1,38 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="wrap_content"
-    android:layout_width="150dp"
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_weight="1"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
     android:layout_margin="10dp">
-    <androidx.cardview.widget.CardView android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android">
-        <RelativeLayout
-            android:id="@+id/each_tag"
-            android:layout_width="150dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tag_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_border_2"
-            android:padding="10dp">
-            <TextView
-                android:id="@+id/tag_title"
-                android:text="Progaming"
-                android:textSize="@dimen/tag_title_text_size"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                />
-
-            <ImageView
-                android:id="@+id/tags_option"
-                android:layout_marginTop="@dimen/tag_option_icon_margin_top"
-                android:src="@drawable/ic_threedots"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@id/tag_title"
-                android:layout_marginLeft="10dp"
-                />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+            android:text="Chu de 1"
+            android:textColor="#5E5E5E"
+            android:textSize="18dp"
+            android:gravity="center" />
+        <ImageView
+            android:id="@+id/tags_option"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_article"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@id/tag_title"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
 

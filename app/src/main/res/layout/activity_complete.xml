@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_tn">
 
     <LinearLayout
         android:id="@+id/layout1"
@@ -28,7 +29,7 @@
                     android:text="Hoàn thành"
                     android:textSize="26dp"
                     android:textColor="@color/black"
-                    android:layout_gravity="center"
+                    android:layout_gravity="left"
                     android:padding="10dp"/>
 
                 <ImageView
@@ -81,7 +82,7 @@
 
         <ImageView
             android:id="@+id/completed_todos_icon"
-            android:src="@drawable/ic_completed_todo_icon"
+            android:src="@drawable/ic_complete_2"
             android:layout_gravity="center"
             android:layout_margin="@dimen/completed_todo_icon_margin"
             android:layout_width="wrap_content"
@@ -91,7 +92,7 @@
             android:text="Chưa có ghi chú hoàn thành"
             android:layout_gravity="center"
             android:textSize="@dimen/no_completed_todo_title_size"
-            android:textColor="@color/ic_completed_todos_title_color"
+            android:textColor="@color/background_yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

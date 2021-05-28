@@ -25,11 +25,6 @@
     <color name="colorAccentViolete">#8e44ad</color>
 
 
-    <color name="ic_pending_todos_title_color">#999999</color>
-    <color name="ic_completed_todos_title_color">#999999</color>
-    <color name="ic_tags_available_color">#999999</color>
-
-
     <color name="nav_pink">#FF8BA1</color>
     <color name="nav_text">#9B9B9B</color>
 

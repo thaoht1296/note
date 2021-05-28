@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background_tn">
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
@@ -42,7 +42,6 @@
         </TableLayout>
     </LinearLayout>
 
-
     <EditText
         android:layout_below="@+id/layout1"
         android:id="@+id/search"
@@ -56,14 +55,12 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/round_border"/>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewAllTags"
         android:layout_below="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp" />
-
     <LinearLayout
         android:id="@+id/no_tags_available"
         android:orientation="vertical"
@@ -72,11 +69,10 @@
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <ImageView
             android:id="@+id/no_tags_icon"
             android:layout_gravity="center"
-            android:src="@drawable/ic_no_tags_icon"
+            android:src="@drawable/ic_bookmark_border"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -85,7 +81,7 @@
             android:layout_gravity="center"
             android:textSize="@dimen/no_tags_available_size"
             android:text="Không có sẵn"
-            android:textColor="@color/ic_tags_available_color"
+            android:textColor="@color/background_yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

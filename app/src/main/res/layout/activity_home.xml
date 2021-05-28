@@ -2,13 +2,9 @@
 <LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_marginRight="15dp"
-    android:layout_marginLeft="15dp"
-    android:background="@color/white"
+    android:background="@color/dot_light_screen4"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +14,6 @@
         android:text="Home Note"
         android:textColor="@color/black"
         android:textSize="30dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -147,103 +142,126 @@
         </TableRow>
     </TableLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <TableLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backgroud_home">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
-            <TableRow>
-                <TextView
-                    android:id="@+id/home_pending"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Ghi chú"
-                    android:padding="10dp"
-                    android:drawableTop="@drawable/ic_star"
-                    android:background="@drawable/round_border_2"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/home_pending"
+                        android:layout_width="110dp"
+                        android:layout_height="80dp"
+                        android:drawablePadding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="Ghi chú"
+                        android:padding="10dp"
+                        android:drawableTop="@drawable/ic_star"
+                        android:background="@drawable/round_border_2"
+                        android:layout_marginEnd="15dp"/>
 
-                <TextView
-                    android:id="@+id/home_tags"
-                    android:drawableTop="@drawable/ic_bookmark"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Chủ đề"
-                    android:padding="10dp"
-                    android:background="@drawable/round_border_2"/>
-
-                <TextView
-                    android:id="@+id/home_completes"
-                    android:drawableTop="@drawable/ic_calendar2"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Hoàn thành"
-                    android:padding="10dp"
-                    android:background="@drawable/round_border_2"/>
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp"
-        android:padding="10dp">
-        <TableLayout
+                    <TextView
+                        android:id="@+id/home_tags"
+                        android:drawableTop="@drawable/ic_bookmark"
+                        android:layout_width="110dp"
+                        android:layout_height="80dp"
+                        android:drawablePadding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="Chủ đề"
+                        android:padding="10dp"
+                        android:background="@drawable/round_border_2"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
-            <TableRow>
-                <TextView
-                    android:id="@+id/home_tke"
-                    android:drawableTop="@drawable/ic_graph"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Thống kê"
-                    android:padding="10dp"
-                    android:background="@drawable/round_border_2"/>
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/home_completes"
+                        android:drawableTop="@drawable/ic_calendar2"
+                        android:layout_width="110dp"
+                        android:layout_height="80dp"
+                        android:drawablePadding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="Hoàn thành"
+                        android:padding="10dp"
+                        android:background="@drawable/round_border_2"
+                        android:layout_marginEnd="15dp"/>
+                    <TextView
+                        android:id="@+id/home_tke"
+                        android:drawableTop="@drawable/ic_graph"
+                        android:layout_width="110dp"
+                        android:layout_height="80dp"
+                        android:drawablePadding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="Thống kê"
+                        android:padding="10dp"
+                        android:background="@drawable/round_border_2" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/home_settings"
-                    android:drawableTop="@drawable/ic_setting_2"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Cài đặt"
-                    android:padding="10dp"
-                    android:background="@drawable/round_border_2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*">
+                <TableRow>
+                    <TextView
+                        android:id="@+id/home_settings"
+                        android:drawableTop="@drawable/ic_setting_2"
+                        android:layout_width="110dp"
+                        android:layout_height="80dp"
+                        android:drawablePadding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="Cài đặt"
+                        android:padding="10dp"
+                        android:background="@drawable/round_border_2"
+                        android:layout_marginEnd="15dp"/>
 
-                <TextView
-                    android:id="@+id/home_logout"
-                    android:drawableTop="@drawable/ic_logout"
-                    android:layout_width="110dp"
-                    android:layout_height="80dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center"
-                    android:text="Thoát"
-                    android:padding="10dp"
-                    android:background="@drawable/round_border_2"/>
-            </TableRow>
-        </TableLayout>
+                    <TextView
+                        android:id="@+id/home_logout"
+                        android:drawableTop="@drawable/ic_logout"
+                        android:layout_width="110dp"
+                        android:layout_height="80dp"
+                        android:drawablePadding="10dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:text="Thoát"
+                        android:padding="10dp"
+                        android:background="@drawable/round_border_2"/>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
