@@ -151,7 +151,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent intent = new Intent(PendingActivity.this, TagActivity.class);
                 startActivity(intent);
-                Toast.makeText(PendingActivity.this, "thaoht",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PendingActivity.this, "thaoht",Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override

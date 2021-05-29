@@ -25,7 +25,6 @@ public class PieChartActivity extends AppCompatActivity {
 
     private TodoDBHelper todoDBHelper;
 
-    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +36,6 @@ public class PieChartActivity extends AppCompatActivity {
         tvcht = findViewById(R.id.tvchoanthanh);
         pieChart = findViewById(R.id.piechart);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras.containsKey("username")) {
-            username = extras.getString("username");
-        }
 
         todoDBHelper=new TodoDBHelper(this);
 
@@ -48,12 +43,10 @@ public class PieChartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent pieIntent = new Intent(PieChartActivity.this, HomeActivity.class);
-                pieIntent.putExtra("username", username);
                 startActivity(pieIntent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
             }
         });
-
 
         tvht.setText(Integer.toString(todoDBHelper.countCompletedTodos()));
         tvcht.setText(Integer.toString(todoDBHelper.countTodos()));

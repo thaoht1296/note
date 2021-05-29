@@ -1,5 +1,7 @@
 package com.example.thaonote.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -80,40 +82,29 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_logout:
-//                AlertDialog.Builder builder=new AlertDialog.Builder(this);
-//                builder.setMessage("Bạn có muốn thoát không?");
-//                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        System.exit(0);
-//                    }
-//                });
-//                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel();
-//                    }
-//                });
-//                AlertDialog alert=builder.create();
-//                alert.show();
+                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                builder.setMessage("Bạn có muốn thoát không?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                        System.exit(0);
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alert=builder.create();
+                alert.show();
 
-                new SweetAlertDialog(HomeActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Bạn có muốn thoát không?")
-                        .setConfirmText("OK")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.dismissWithAnimation();
-                                System.exit(0);
-                            }
-                        })
-                        .setCancelButton("Hủy", new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.dismissWithAnimation();
-                            }
-                        })
-                        .show();
                 break;
         }
     }
