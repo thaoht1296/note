@@ -101,14 +101,16 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(todoDBHelper.removeTodo(tagID)){
                     Toast.makeText(context, "Xóa thành công !", Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, PendingActivity.class));
+                    Intent it1 = new Intent(context, PendingActivity.class);
+                    context.startActivity(it1);
                 }
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(context, "Ghi chú chưa bị xóa !", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, PendingActivity.class));
+                Intent it1 = new Intent(context, PendingActivity.class);
+                context.startActivity(it1);
             }
         }).create().show();
     }
@@ -231,7 +233,8 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
                         new PendingModel(todoID,getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime)
                 )){
                     Toast.makeText(context, "Thêm thành công!", Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context,PendingActivity.class));
+                    Intent it1 = new Intent(context, PendingActivity.class);
+                    context.startActivity(it1);
                 }
             }
         });
@@ -253,7 +256,8 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(todoDBHelper.makeCompleted(tagID)){
-                    context.startActivity(new Intent(context, CompletedTodos.class));
+                    Intent it1 = new Intent(context, PendingActivity.class);
+                    context.startActivity(it1);
                 }
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {

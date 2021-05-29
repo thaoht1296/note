@@ -52,15 +52,18 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
 
     private EditText search;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending);
         initView();
+
         addNewTodo.setOnClickListener(this::onClick);
         completed.setOnClickListener(this::onClick);
         all_tags.setOnClickListener(this::onClick);
         back1.setOnClickListener(this::onClick);
+
 
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -121,16 +124,19 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.all_tags:
-                startActivity(new Intent(this, TagActivity.class));
+                Intent pend_tag = new Intent(this, TagActivity.class);
+                startActivity(pend_tag);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 //                Toast.makeText(this, "thaodebug", Toast.LENGTH_LONG).show();
                 break;
             case R.id.completed:
-                startActivity(new Intent(this,CompletedTodos.class));
+                Intent pend_com = new Intent(this,CompletedTodos.class);
+                startActivity(pend_com);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.back1:
-                startActivity(new Intent(this, HomeActivity.class));
+                Intent pend_back = new Intent(this, HomeActivity.class);
+                startActivity(pend_back);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
         }
@@ -175,7 +181,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         Spinner todoTags=(Spinner)view.findViewById(R.id.todo_tag);
 
         //stores all the tags title in string format
-        ArrayAdapter<String> tagsModelArrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,tagDBHelper.fetchTagStrings());
+        ArrayAdapter<String> tagsModelArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,tagDBHelper.fetchTagStrings());
         //setting dropdown view resouce for spinner
         tagsModelArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //setting the spinner adapter
@@ -256,7 +262,6 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                         new PendingModel(getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime))){
 
                     Toast.makeText(PendingActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(PendingActivity.this, PendingActivity.class));
 
 
                     // notification
@@ -283,13 +288,17 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(PendingActivity.this,
                             0, intent, 0);
                     am.set(AlarmManager.RTC_WAKEUP, calendar_alarm.getTimeInMillis(), pendingIntent);
+
+                    Intent pend = new Intent(PendingActivity.this, PendingActivity.class);
+                    startActivity(pend);
                 }
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PendingActivity.this, PendingActivity.class));
+                Intent pend = new Intent(PendingActivity.this, PendingActivity.class);
+                startActivity(pend);
             }
         });
         builder.create().show();

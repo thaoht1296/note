@@ -1,6 +1,7 @@
 package com.example.thaonote.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.thaonote.R;
+import com.example.thaonote.dbhelper.UserDBHelper;
 import com.example.thaonote.graph.BarChartActivity;
 import com.example.thaonote.graph.PieChartActivity;
+import com.example.thaonote.model.User;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -19,15 +22,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView pending, tags, completes, statistic, settings, logout;
-    private TextView name;
-    private ImageView editprofile;
-    private CircleImageView avatar;
+    public String username;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         initView();
+
         pending.setOnClickListener(this::onClick);
         tags.setOnClickListener(this::onClick);
         completes.setOnClickListener(this::onClick);
@@ -35,7 +38,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         settings.setOnClickListener(this::onClick);
         logout.setOnClickListener(this::onClick);
 
-        editprofile.setOnClickListener(this::onClick);
+
     }
 
     public void initView(){
@@ -46,32 +49,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         settings = findViewById(R.id.home_settings);
         logout = findViewById(R.id.home_logout);
 
-        name = findViewById(R.id.home_name);
-        editprofile = findViewById(R.id.home_editprofile);
-        avatar = findViewById(R.id.home_avatar);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.home_pending:
-                startActivity(new Intent(this, PendingActivity.class));
+                Intent home_pending = new Intent(this, PendingActivity.class);
+                startActivity(home_pending);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_tags:
-                startActivity(new Intent(this, TagActivity.class));
+                Intent home_tags = new Intent(this, TagActivity.class);
+                startActivity(home_tags);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_completes:
-                startActivity(new Intent(this, CompletedTodos.class));
+                Intent home_comp = new Intent(this, CompletedTodos.class);
+                startActivity(home_comp);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_tke:
-                startActivity(new Intent(this, PieChartActivity.class));
+                Intent home_tk = new Intent(this, PieChartActivity.class);
+                startActivity(home_tk);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_settings:
-                startActivity(new Intent(this, AppSettings.class));
+                Intent home_set = new Intent(this, AppSettings.class);
+                startActivity(home_set);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_logout:
@@ -109,9 +114,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         })
                         .show();
-                break;
-            case R.id.home_editprofile:
-                startActivity(new Intent(this, ProfileActivity.class));
                 break;
         }
     }

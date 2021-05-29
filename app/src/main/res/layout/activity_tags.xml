@@ -73,8 +73,8 @@
             android:id="@+id/no_tags_icon"
             android:layout_gravity="center"
             android:src="@drawable/ic_bookmark_border"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
         <TextView
             android:id="@+id/no_tags_text"

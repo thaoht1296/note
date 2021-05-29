@@ -39,7 +39,7 @@ public class WelcomeActivity_1 extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity_1.this, LoginActivity.class));
+                startActivity(new Intent(WelcomeActivity_1.this, HomeActivity.class));
 
                 // animation slide activity
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

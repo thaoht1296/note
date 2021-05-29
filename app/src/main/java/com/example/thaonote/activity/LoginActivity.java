@@ -1,6 +1,8 @@
 package com.example.thaonote.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +24,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView txtRegister, txtForgotpass;
     private User u;
 
+
     private UserDBHelper userDBHelper;
 
+    private final static int REQUEST_CODE = 10000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password = findViewById(R.id.inputPassword);
         txtRegister = findViewById(R.id.gotoRegister);
         txtForgotpass = findViewById(R.id.forgotPassword);
+
 
         userDBHelper = new UserDBHelper(this);
 
@@ -58,6 +63,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(isExist){
                         Intent loginIntent = new Intent(getApplicationContext(),
                                 HomeActivity.class);
+
+                        loginIntent.putExtra("username", username1);
                         startActivity(loginIntent);
 
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -76,5 +83,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-
 }

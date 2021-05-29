@@ -24,7 +24,7 @@ public class TagDBHelper {
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put(DatabaseHelper.COL_TAG_TITLE,tagsModel.getTagTitle());
-        contentValues.put("tagUser", tagsModel.getTagUser());
+//        contentValues.put("tagUser", tagsModel.getTagUser());
         sqLiteDatabase.insert(DatabaseHelper.TABLE_TAG_NAME,null,contentValues);
         sqLiteDatabase.close();
         return true;

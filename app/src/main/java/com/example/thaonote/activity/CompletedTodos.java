@@ -32,6 +32,7 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
 
     private EditText search;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,11 +99,13 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
                 deleteDialog();
                 break;
             case R.id.settings:
-                startActivity(new Intent(this,AppSettings.class));
+                Intent com_set = new Intent(this,AppSettings.class);
+                startActivity(com_set);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.back1:
-                startActivity(new Intent(this, HomeActivity.class));
+                Intent com_back = new Intent(this, HomeActivity.class);
+                startActivity(com_back);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
         }
@@ -117,7 +120,8 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(todoDBHelper.removeCompletedTodos()){
-                    startActivity(new Intent(CompletedTodos.this, CompletedTodos.class));
+                    Intent com = new Intent(CompletedTodos.this, CompletedTodos.class);
+                    startActivity(com);
                     Toast.makeText(CompletedTodos.this, "Xóa tất cả ghi chú hoàn thành thành công !", Toast.LENGTH_SHORT).show();
                 }
             }

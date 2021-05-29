@@ -3,4 +3,5 @@
     <stroke android:color="@color/bt_ttcn"
         android:width="1dp"/>
     <corners android:radius="10dp"/>
+    <solid android:color="@color/white"/>
 </shape>

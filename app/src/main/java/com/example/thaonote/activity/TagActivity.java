@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thaonote.R;
 import com.example.thaonote.adapter.TagAdapter;
 import com.example.thaonote.dbhelper.TagDBHelper;
+import com.example.thaonote.dbhelper.UserDBHelper;
 import com.example.thaonote.model.TagsModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -43,6 +44,8 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags);
         initView();
+
+
         fabAddTag.setOnClickListener(this::onClick);
         setting.setOnClickListener(this::onClick);
         back1.setOnClickListener(this::onClick);
@@ -104,11 +107,13 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
                 showNewTagDialog();
                 break;
             case R.id.settings:
-                startActivity(new Intent(this, AppSettings.class));
+                Intent tag_setting = new Intent(this, AppSettings.class);
+                startActivity(tag_setting);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.back1:
-                startActivity(new Intent(this, HomeActivity.class));
+                Intent tag_back = new Intent(this, HomeActivity.class);
+                startActivity(tag_back);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
             default:
@@ -132,14 +137,21 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
                 boolean isTagEmpty=tagTitle.getText().toString().isEmpty();
                 boolean tagExists=tagDBHelper.tagExists(getTagTitle);
 
+                // them cho nguoi dung
+//                int userID = userDBHelper.fetchUserID(username);
+
                 if(isTagEmpty){
                     tagTitle.setError("Yêu cầu tiêu đề thẻ!");
                 }else if(tagExists){
                     tagTitle.setError("Tiêu đề đã tồn tại!");
                 }else {
                     if(tagDBHelper.addNewTag(new TagsModel(getTagTitle))){
+
+                        Intent tagIntent = new Intent(TagActivity.this,TagActivity.class);
                         Toast.makeText(TagActivity.this, "Thêm thẻ thành công", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(TagActivity.this,TagActivity.class));
+
+                        startActivity(tagIntent);
+
                     }
                 }
             }
@@ -147,7 +159,8 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(TagActivity.this,TagActivity.class));
+                Intent tag_ca = new Intent(TagActivity.this,TagActivity.class);
+                startActivity(tag_ca);
             }
         });
         builder.create().show();

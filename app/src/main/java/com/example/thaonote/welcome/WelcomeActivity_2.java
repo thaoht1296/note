@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.thaonote.R;
+import com.example.thaonote.activity.HomeActivity;
 import com.example.thaonote.activity.LoginActivity;
 
 public class WelcomeActivity_2 extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class WelcomeActivity_2 extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity_2.this, LoginActivity.class));
+                startActivity(new Intent(WelcomeActivity_2.this, HomeActivity.class));
 
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }

@@ -57,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.back1:
                 startActivity(new Intent(this, HomeActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
                 break;
             case R.id.pro_update:
                 String username1 = name.getText().toString().trim();
@@ -69,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(getApplicationContext(), "Hãy nhập thông tin!", Toast.LENGTH_LONG).show();
                 }else{
                     Boolean isExist = userDBHelper.getCheckLogin(username1, password);
+                    Toast.makeText(getApplicationContext(), "check login thanh cong", Toast.LENGTH_SHORT).show();
                     if(isExist){
                         userDBHelper.changepassword(username1, newpassword);
                         new SweetAlertDialog(ProfileActivity.this, SweetAlertDialog.SUCCESS_TYPE)

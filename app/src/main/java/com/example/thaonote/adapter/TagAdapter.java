@@ -95,14 +95,16 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(tagDBHelper.removeTag(tagID)){
                     Toast.makeText(context, "Xóa thẻ thành công!", Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, TagActivity.class));
+                    Intent it1 = new Intent(context, TagActivity.class);
+                    context.startActivity(it1);
                 }
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(context, "Thẻ chưa bị xóa!", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, TagActivity.class));
+                Intent it2 = new Intent(context, TagActivity.class);
+                context.startActivity(it2);
             }
         }).create().show();
     }
@@ -131,7 +133,8 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
                     tagEditTitle.setError("Tiêu đề thẻ đã tồn tại");
                 }else if(tagDBHelper.saveTag(new TagsModel(tagID,getTagTitle))){
                     Toast.makeText(context, "Lưu thành công!", Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, TagActivity.class));
+                    Intent it3 = new Intent(context, TagActivity.class);
+                    context.startActivity(it3);
                 }
             }
         });
@@ -139,7 +142,8 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Thẻ không thay đổi!", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, TagActivity.class));
+                Intent it4 = new Intent(context, TagActivity.class);
+                context.startActivity(it4);
             }
         });
         builder.create().show();

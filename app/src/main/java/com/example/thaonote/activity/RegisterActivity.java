@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private Button btnRegister;
     private EditText username, password;
+    private TextView txtCancel;
 
     private UserDBHelper userDBHelper;
 
@@ -31,10 +33,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnRegister = findViewById(R.id.btnRegister);
         username = findViewById(R.id.inputName);
         password = findViewById(R.id.inputPassword);
+        txtCancel = findViewById(R.id.txtCancel);
 
         userDBHelper = new UserDBHelper(this);
 
         btnRegister.setOnClickListener(this::onClick);
+        txtCancel.setOnClickListener(this::onClick);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 else{
                     if(userDBHelper.insertUser(new User(username1, pass)) == true){
-                        Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                         new SweetAlertDialog(RegisterActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Đăng kí thành công")
                                 .setContentText("Hello "+ username1)
@@ -68,6 +72,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 .show();
                     }
                 }
+                break;
+            case R.id.txtCancel:
+                setResult(RESULT_CANCELED, null);
+                finish();
+                break;
         }
     }
 }

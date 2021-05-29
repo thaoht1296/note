@@ -32,9 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //creating tags table query
     private static final String CREATE_TAGS_TABLE="CREATE TABLE IF NOT EXISTS " + TABLE_TAG_NAME+"("+
             COL_TAG_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
-            COL_TAG_TITLE+" TEXT NOT NULL UNIQUE,"+
-            "tagUser INTEGER NOT NULL," +
-            "FOREIGN KEY (tagUser) " +  " REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE)";
+            COL_TAG_TITLE+" TEXT NOT NULL UNIQUE)";
+//            "tagUser INTEGER NOT NULL," +
+//            "FOREIGN KEY (tagUser) " +  " REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE)";
 
     //creating todos table query
     private static final String CREATE_TODOS_TABLE="CREATE TABLE IF NOT EXISTS " + TABLE_TODO_NAME+"("+

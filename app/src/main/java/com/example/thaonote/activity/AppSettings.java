@@ -21,13 +21,14 @@ public class AppSettings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         back =findViewById(R.id.back1);
         getPrefFragment();
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AppSettings.this, HomeActivity.class);
-                startActivity(new Intent(intent));
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-                finish();
             }
         });
     }
