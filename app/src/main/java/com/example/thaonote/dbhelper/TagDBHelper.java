@@ -19,7 +19,7 @@ public class TagDBHelper {
         databaseHelper=new DatabaseHelper(context);
     }
 
-    //add new tags into the database
+    //thêm mới chủ đề
     public boolean addNewTag(TagsModel tagsModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -30,7 +30,7 @@ public class TagDBHelper {
         return true;
     }
 
-    //check whether the tag exists or not
+    // kiểm tra xem chủ đề đã có chưa
     public boolean tagExists(String tagTitle){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String query="SELECT " + DatabaseHelper.COL_TAG_TITLE + " FROM " +
@@ -39,7 +39,7 @@ public class TagDBHelper {
         return (cursor.getCount()>0)?true:false;
     }
 
-    //count tags from the database
+    //đếm số lương chủ đề
     public int countTags(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String query="SELECT " + DatabaseHelper.COL_TAG_ID + " FROM " + DatabaseHelper.TABLE_TAG_NAME;
@@ -47,7 +47,7 @@ public class TagDBHelper {
         return cursor.getCount();
     }
 
-    //fetch all the tags from the database
+    //list all chủ đề
     public ArrayList<TagsModel> fetchTags(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         ArrayList<TagsModel> tagsModelModels =new ArrayList<>();
@@ -64,7 +64,7 @@ public class TagDBHelper {
         return tagsModelModels;
     }
 
-    //delete tag from the database according to the id
+    //xóa chủ đề theo id
     public boolean removeTag(int tagID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         sqLiteDatabase.execSQL(DatabaseHelper.FORCE_FOREIGN_KEY);
@@ -74,7 +74,7 @@ public class TagDBHelper {
         return true;
     }
 
-    //update tag from the database according to the tag id
+    //cập nhật chủ đề theo id
     public boolean saveTag(TagsModel tagsModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -86,7 +86,7 @@ public class TagDBHelper {
     }
 
 
-    //fetch all the tags title strings from the database
+    //List all các title
     public ArrayList<String> fetchTagStrings(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         ArrayList<String> tagsModels=new ArrayList<>();
@@ -100,7 +100,7 @@ public class TagDBHelper {
         return tagsModels;
     }
 
-    //fetch tag title from the database according to the tag id
+    //Lấy title của chủ đề theo id
     public String fetchTagTitle(int tagID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String fetchTitle="SELECT " + DatabaseHelper.COL_TAG_TITLE + " FROM " + DatabaseHelper.TABLE_TAG_NAME
@@ -115,7 +115,7 @@ public class TagDBHelper {
         return title;
     }
 
-    //fetch tag id from the database according to the tag title
+    //lấy id của chủ đề theo title
     public int fetchTagID(String tagTitle){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String fetchTitle="SELECT " + DatabaseHelper.COL_TAG_ID + " FROM " + DatabaseHelper.TABLE_TAG_NAME

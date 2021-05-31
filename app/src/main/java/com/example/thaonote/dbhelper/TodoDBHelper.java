@@ -20,7 +20,7 @@ public class TodoDBHelper {
         databaseHelper=new DatabaseHelper(context);
     }
 
-    //add new todos into the database
+    //thêm mới ghi chú
     public boolean addNewTodo(PendingModel pendingModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -35,7 +35,8 @@ public class TodoDBHelper {
         return true;
     }
 
-    //count todos from the database
+
+    // đếm số lượng ghi chú chưa hoàn thành
     public int countTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String count="SELECT " + DatabaseHelper.COL_TODO_ID + " FROM " + DatabaseHelper.TABLE_TODO_NAME + " WHERE " + DatabaseHelper.COL_TODO_STATUS+"=?";
@@ -43,7 +44,7 @@ public class TodoDBHelper {
         return cursor.getCount();
     }
 
-    //count completed todos from the database
+    //đếm số lượng ghi chú đã hoàn thành
     public int countCompletedTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String count="SELECT " + DatabaseHelper.COL_TODO_ID + " FROM " + DatabaseHelper.TABLE_TODO_NAME + " WHERE " + DatabaseHelper.COL_TODO_STATUS+"=?";
@@ -51,7 +52,7 @@ public class TodoDBHelper {
         return cursor.getCount();
     }
 
-    //fetch all the todos from the database
+    //List all ghi chú chưa hoàn thành
     public ArrayList<PendingModel> fetchAllTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         ArrayList<PendingModel> pendingModels =new ArrayList<>();
@@ -73,7 +74,7 @@ public class TodoDBHelper {
         return pendingModels;
     }
 
-    //fetch all the completed todos from the database
+    //list all ghi chú đã hoàn thành
     public ArrayList<CompletedModel> fetchCompletedTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         ArrayList<CompletedModel> completedModels =new ArrayList<>();
@@ -95,7 +96,7 @@ public class TodoDBHelper {
         return completedModels;
     }
 
-    //update todos according to the todos id
+    // update ghi chú theo todo_id
     public boolean updateTodo(PendingModel pendingModel){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -110,7 +111,7 @@ public class TodoDBHelper {
         return true;
     }
 
-    //make todos completed according to the id
+    //tạo ghi chú đã hoàn thành theo id
     public boolean makeCompleted(int todoID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
@@ -121,7 +122,7 @@ public class TodoDBHelper {
         return true;
     }
 
-    //remove todos according to the todos id
+    //xóa ghi chú chưa hoàn thành theo id
     public boolean removeTodo(int todoID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         sqLiteDatabase.delete(DatabaseHelper.TABLE_TODO_NAME,DatabaseHelper.COL_TODO_ID+"=?",new String[]{String.valueOf(todoID)});
@@ -129,7 +130,7 @@ public class TodoDBHelper {
         return true;
     }
 
-    //remove all the completed todos
+    //xóa tất cả ghi chú đã hoàn thành
     public boolean removeCompletedTodos(){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         sqLiteDatabase.delete(DatabaseHelper.TABLE_TODO_NAME,DatabaseHelper.COL_TODO_STATUS+"=?",new String[]{DatabaseHelper.COL_STATUS_COMPLETED});
@@ -137,7 +138,8 @@ public class TodoDBHelper {
         return true;
     }
 
-    //fetch todos title from the database according the todos id
+
+    // lấy tiêu đề của ghi chú theo id
     public String fetchTodoTitle(int todoID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String query="SELECT " + DatabaseHelper.COL_TODO_TITLE + " FROM " + DatabaseHelper.TABLE_TODO_NAME + " WHERE " + DatabaseHelper.COL_TODO_ID+"=?";
@@ -151,7 +153,7 @@ public class TodoDBHelper {
         return title;
     }
 
-    //fetch todos content from the database according the todos id
+    //lấy nội dung của ghi chú theo id
     public String fetchTodoContent(int todoID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String query="SELECT " + DatabaseHelper.COL_TODO_CONTENT + " FROM " + DatabaseHelper.TABLE_TODO_NAME + " WHERE " + DatabaseHelper.COL_TODO_ID+"=?";
@@ -165,7 +167,7 @@ public class TodoDBHelper {
         return content;
     }
 
-    //fetch todos date from the database according the todos id
+    //lấy date của ghi chú theo id
     public String fetchTodoDate(int todoID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String query="SELECT " + DatabaseHelper.COL_TODO_DATE + " FROM " + DatabaseHelper.TABLE_TODO_NAME + " WHERE " + DatabaseHelper.COL_TODO_ID+"=?";
@@ -179,7 +181,7 @@ public class TodoDBHelper {
         return date;
     }
 
-    //fetch todos time from the database according the todos id
+    //lấy time của ghi chú theo id
     public String fetchTodoTime(int todoID){
         SQLiteDatabase sqLiteDatabase=this.databaseHelper.getReadableDatabase();
         String query="SELECT " + DatabaseHelper.COL_TODO_TIME + " FROM " + DatabaseHelper.TABLE_TODO_NAME + " WHERE " + DatabaseHelper.COL_TODO_ID+"=?";

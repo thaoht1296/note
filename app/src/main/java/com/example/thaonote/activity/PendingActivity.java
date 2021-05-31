@@ -161,9 +161,9 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         }).create().show();
     }
 
-    //show add new todos dialog and adding the todos into the database
+    // hiển thị dialog khi thêm mới ghi chú
     private void showNewTodoDialog(){
-        //getting current calendar credentials
+
         final Calendar calendar= Calendar.getInstance();
         final int year=calendar.get(Calendar.YEAR);
         final int month=calendar.get(Calendar.MONTH);
@@ -180,15 +180,18 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         final EditText todoContent=view.findViewById(R.id.todo_content);
         Spinner todoTags=(Spinner)view.findViewById(R.id.todo_tag);
 
-        //stores all the tags title in string format
+
+        // lưu trữ all tags title
         ArrayAdapter<String> tagsModelArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,tagDBHelper.fetchTagStrings());
-        //setting dropdown view resouce for spinner
+
+        // cài đặt view cho spinner
         tagsModelArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //setting the spinner adapter
+        //cài đặt spiner apdater
         todoTags.setAdapter(tagsModelArrayAdapter);
         todoTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // lấy title ở vị trí pos spinner
                 getTagTitleString=adapterView.getItemAtPosition(i).toString();
             }
 
@@ -199,7 +202,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         final EditText todoDate=view.findViewById(R.id.todo_date);
         final EditText todoTime=view.findViewById(R.id.todo_time);
 
-        //getting the tododate
+
         todoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,7 +217,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
 
-        //getting the todos time
+
         todoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,20 +239,20 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         addTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getting all the values from add new todos dialog
+
                 String getTodoTitle=todoTitle.getText().toString();
                 String getTodoContent=todoContent.getText().toString();
                 int todoTagID=tagDBHelper.fetchTagID(getTagTitleString);
                 String getTodoDate=todoDate.getText().toString();
                 String getTime=todoTime.getText().toString();
 
-                //checking the data fiels
+                //kiểm tra dữ liệu có null ko
                 boolean isTitleEmpty=todoTitle.getText().toString().isEmpty();
                 boolean isContentEmpty=todoContent.getText().toString().isEmpty();
                 boolean isDateEmpty=todoDate.getText().toString().isEmpty();
                 boolean isTimeEmpty=todoTime.getText().toString().isEmpty();
 
-                //adding the todos
+                //thêm ghi chú khi thỏa mãn các điều kiện
                 if(isTitleEmpty){
                     todoTitle.setError("Yêu cầu tiêu đề");
                 }else if(isContentEmpty){
@@ -268,11 +271,11 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
 
                     String [] time_spilt=getTodoDate.split("/");
                     int date_alarm = Integer.parseInt(time_spilt[0]);
-                    System.out.println(date_alarm);
+//                    System.out.println(date_alarm);
                     int month_alarm = Integer.parseInt(time_spilt[1])-1;
-                    System.out.println(month_alarm);
+//                    System.out.println(month_alarm);
                     int year_alarm = Integer.parseInt(time_spilt[2]);
-                    System.out.println(year_alarm);
+//                    System.out.println(year_alarm);
                     Calendar calendar_alarm = Calendar.getInstance();
                     calendar_alarm.setTimeInMillis(System.currentTimeMillis());
                     calendar_alarm.set(year_alarm,month_alarm,date_alarm);

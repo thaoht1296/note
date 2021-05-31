@@ -9,12 +9,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION=1;
     private static final String DATABASE_NAME="thaonote";
 
-    //tag table and columns
+    //table tag
     public static final String TABLE_TAG_NAME="tags";
     public static final String COL_TAG_ID="tag_id";
     public static final String COL_TAG_TITLE="tag_title";
 
-    //todos table and columns
+    //table todo
     public static final String TABLE_TODO_NAME="todos";
     public static final String COL_TODO_ID="todo_id";
     public static final String COL_TODO_TITLE="todo_title";
@@ -26,17 +26,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_DEFAULT_STATUS="pending";
     public static final String COL_STATUS_COMPLETED="completed";
 
-    //forcing foreign key
+    //thực thi khóa ngoại
     public static final String FORCE_FOREIGN_KEY="PRAGMA foreign_keys=ON";
 
-    //creating tags table query
+    //tạo bảng tags
     private static final String CREATE_TAGS_TABLE="CREATE TABLE IF NOT EXISTS " + TABLE_TAG_NAME+"("+
             COL_TAG_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
             COL_TAG_TITLE+" TEXT NOT NULL UNIQUE)";
 //            "tagUser INTEGER NOT NULL," +
 //            "FOREIGN KEY (tagUser) " +  " REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE)";
 
-    //creating todos table query
+    //tạo bảng todos
     private static final String CREATE_TODOS_TABLE="CREATE TABLE IF NOT EXISTS " + TABLE_TODO_NAME+"("+
             COL_TODO_ID+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"+
             COL_TODO_TITLE+" TEXT NOT NULL,"+
@@ -48,9 +48,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COL_DEFAULT_STATUS +
             ",FOREIGN KEY("+COL_TODO_TAG+") REFERENCES "+TABLE_TAG_NAME+"("+COL_TAG_ID+") ON UPDATE CASCADE ON DELETE CASCADE"+")";
 
-    //dropping tags table
+    //kiểm tra bảng có tồn tại không trước khi xóa bảng
     private static final String DROP_TAGS_TABLE="DROP TABLE IF EXISTS " + TABLE_TAG_NAME;
-    //dropping todos table
+    //xóa
     private static final String DROP_TODOS_TABLE="DROP TABLE IF EXISTS " + TABLE_TODO_NAME;
 
 

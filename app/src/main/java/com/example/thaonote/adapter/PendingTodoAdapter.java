@@ -91,7 +91,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         });
     }
 
-    //showing confirmation dialog for deleting the todos
+    //Dialog xóa ghi chú
     private void showDeleteDialog(final int tagID){
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         builder.setTitle("Xác nhận xóa ghi chú");
@@ -120,7 +120,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         return pendingModels.size();
     }
 
-    //showing edit dialog for editing todos according to the todoid
+    //sửa ghi chú theo id
     private void showDialogEdit(final int todoID){
         todoDBHelper=new TodoDBHelper(context);
         tagDBHelper=new TagDBHelper(context);
@@ -133,11 +133,11 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         final EditText todoTitle=view.findViewById(R.id.todo_title);
         final EditText todoContent=view.findViewById(R.id.todo_content);
         Spinner todoTags=(Spinner)view.findViewById(R.id.todo_tag);
-        //stores all the tags title in string format
+
         ArrayAdapter<String> tagsModelArrayAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item,tagDBHelper.fetchTagStrings());
-        //setting dropdown view resouce for spinner
+
         tagsModelArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //setting the spinner adapter
+
         todoTags.setAdapter(tagsModelArrayAdapter);
         todoTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -153,13 +153,13 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         final EditText todoDate=view.findViewById(R.id.todo_date);
         final EditText todoTime=view.findViewById(R.id.todo_time);
 
-        //setting the default values coming from the database
+        //lấy các giá trị từ csdl
         todoTitle.setText(todoDBHelper.fetchTodoTitle(todoID));
         todoContent.setText(todoDBHelper.fetchTodoContent(todoID));
         todoDate.setText(todoDBHelper.fetchTodoDate(todoID));
         todoTime.setText(todoDBHelper.fetchTodoTime(todoID));
 
-        //getting current calendar credentials
+
         final Calendar calendar= Calendar.getInstance();
         final int year=calendar.get(Calendar.YEAR);
         final int month=calendar.get(Calendar.MONTH);
@@ -167,24 +167,21 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         final int hour=calendar.get(Calendar.HOUR);
         final int minute=calendar.get(Calendar.MINUTE);
 
-        //getting the tododate
+
         todoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        calendar.set(Calendar.YEAR,i);
-                        calendar.set(Calendar.MONTH,i1);
-                        calendar.set(Calendar.DAY_OF_MONTH,i2);
-                        todoDate.setText(DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime()));
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        todoDate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
                     }
                 },year,month,day);
                 datePickerDialog.show();
             }
         });
 
-        //getting the todos time
+
         todoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,20 +204,20 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         addTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getting all the values from add new todos dialog
+
                 String getTodoTitle=todoTitle.getText().toString();
                 String getTodoContent=todoContent.getText().toString();
                 int todoTagID=tagDBHelper.fetchTagID(getTagTitleString);
                 String getTodoDate=todoDate.getText().toString();
                 String getTime=todoTime.getText().toString();
 
-                //checking the data fiels
+
                 boolean isTitleEmpty=todoTitle.getText().toString().isEmpty();
                 boolean isContentEmpty=todoContent.getText().toString().isEmpty();
                 boolean isDateEmpty=todoDate.getText().toString().isEmpty();
                 boolean isTimeEmpty=todoTime.getText().toString().isEmpty();
 
-                //adding the todos
+
                 if(isTitleEmpty){
                     todoTitle.setError("Yêu cầu tiêu đề !");
                 }else if(isContentEmpty){
@@ -247,7 +244,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         builder.create().show();
     }
 
-    //showing confirmation dialog for making the todo completed
+    //dialog xác nhận ghi chú hoàn thành
     private void showCompletedDialog(final int tagID){
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         builder.setTitle("Hoàn thành công việc");
