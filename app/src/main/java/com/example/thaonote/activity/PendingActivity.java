@@ -90,8 +90,8 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void initView(){
-        pendingTodos=(RecyclerView)findViewById(R.id.pending_todos_view);
-        linearLayout=(LinearLayout)findViewById(R.id.no_pending_todo_section);
+        pendingTodos = findViewById(R.id.pending_todos_view);
+        linearLayout= findViewById(R.id.no_pending_todo_section);
         tagDBHelper=new TagDBHelper(this);
         todoDBHelper=new TodoDBHelper(this);
 
@@ -106,7 +106,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         linearLayoutManager=new LinearLayoutManager(this);
         pendingTodos.setAdapter(pendingTodoAdapter);
         pendingTodos.setLayoutManager(linearLayoutManager);
-        addNewTodo=(FloatingActionButton)findViewById(R.id.fabAddTodo);
+        addNewTodo= findViewById(R.id.fabAddTodo);
         search = findViewById(R.id.search);
         completed = findViewById(R.id.completed);
         all_tags = findViewById(R.id.all_tags);

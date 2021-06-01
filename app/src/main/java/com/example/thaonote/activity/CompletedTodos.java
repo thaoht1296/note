@@ -111,7 +111,7 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    //showing the delete confirmation dialog
+    //Xác nhận xóa tât cả ghi chú
     private void deleteDialog(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Xác nhận xóa");

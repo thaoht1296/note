@@ -1,7 +1,9 @@
 package com.example.thaonote.adapter;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
 import com.example.thaonote.activity.CompletedTodos;
+import com.example.thaonote.activity.MyReceiver;
 import com.example.thaonote.activity.PendingActivity;
 import com.example.thaonote.dbhelper.TagDBHelper;
 import com.example.thaonote.dbhelper.TodoDBHelper;
@@ -232,6 +235,33 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
                     Toast.makeText(context, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                     Intent it1 = new Intent(context, PendingActivity.class);
                     context.startActivity(it1);
+
+                    // notifacation
+                    String [] time_spilt=getTodoDate.split("/");
+                    int date_alarm = Integer.parseInt(time_spilt[0]);
+//                    System.out.println(date_alarm);
+                    int month_alarm = Integer.parseInt(time_spilt[1])-1;
+//                    System.out.println(month_alarm);
+                    int year_alarm = Integer.parseInt(time_spilt[2]);
+//                    System.out.println(year_alarm);
+                    Calendar calendar_alarm = Calendar.getInstance();
+                    calendar_alarm.setTimeInMillis(System.currentTimeMillis());
+                    calendar_alarm.set(year_alarm,month_alarm,date_alarm);
+
+                    AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+                    Intent intent = new Intent(context,
+                            MyReceiver.class);
+                    intent.putExtra("myAction", "mDoNotify");
+                    intent.putExtra("Title", getTodoTitle);
+                    intent.putExtra("Description", getTodoContent);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
+                            0, intent, 0);
+                    am.set(AlarmManager.RTC_WAKEUP, calendar_alarm.getTimeInMillis(), pendingIntent);
+
+                    Intent pend = new Intent(context, PendingActivity.class);
+                    context.startActivity(pend);
                 }
             }
         });

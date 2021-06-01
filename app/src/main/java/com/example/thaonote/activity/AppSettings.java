@@ -37,14 +37,15 @@ public class AppSettings extends AppCompatActivity {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            // nạp xml cho fragment
             addPreferencesFromResource(R.xml.app_preferences);
         }
     }
 
-    //getting the setting fragment
     private void getPrefFragment(){
-        FragmentManager fragmentManager=getFragmentManager();
-        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.prefContainer,new AppPreference()).commit();
     }
 }

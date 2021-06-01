@@ -35,6 +35,7 @@ public class CompletedTodoAdapter extends RecyclerView.Adapter<CompletedTodoAdap
     public void onBindViewHolder(CompletedDataHolder holder, int position) {
         todoDBHelper=new TodoDBHelper(context);
         CompletedModel completedModel = completedModels.get(position);
+        // gạch ngang
         holder.todoTitle.setPaintFlags(holder.todoTitle.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
         holder.todoTitle.setText(completedModel.getTodoTitle());
         holder.todoContent.setText(completedModel.getTodoContent());
