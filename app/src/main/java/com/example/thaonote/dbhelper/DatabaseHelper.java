@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION=1;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME="thaonote.db";
 
     private Context mContext = null;

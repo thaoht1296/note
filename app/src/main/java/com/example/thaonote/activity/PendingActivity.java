@@ -64,8 +64,6 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         img_tag.setOnClickListener(this::onClick);
         back1.setOnClickListener(this::onClick);
 
-
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

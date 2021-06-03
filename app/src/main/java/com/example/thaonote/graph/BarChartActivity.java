@@ -62,7 +62,7 @@ public class BarChartActivity extends AppCompatActivity {
 
     private void getEntries() {
         barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1f, DAOTodo.countCompletedTodos()));
-        barEntries.add(new BarEntry(2f, DAOTodo.countTodos()));
+        barEntries.add(new BarEntry(1f, DAOTodo.countCompleted()));
+        barEntries.add(new BarEntry(2f, DAOTodo.countNotCompleted()));
     }
 }

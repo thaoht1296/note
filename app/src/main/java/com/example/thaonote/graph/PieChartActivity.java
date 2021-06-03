@@ -47,8 +47,8 @@ public class PieChartActivity extends AppCompatActivity {
             }
         });
 
-        tvht.setText(Integer.toString(DAOTodo.countCompletedTodos()));
-        tvcht.setText(Integer.toString(DAOTodo.countTodos()));
+        tvht.setText(Integer.toString(DAOTodo.countNotCompleted()));
+        tvcht.setText(Integer.toString(DAOTodo.countCompleted()));
 
         pieChart.addPieSlice(
                 new PieModel(

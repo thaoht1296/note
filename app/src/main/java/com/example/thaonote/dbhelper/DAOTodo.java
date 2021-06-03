@@ -90,14 +90,10 @@ public class DAOTodo extends DAOBase {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<Pending> pendings =new ArrayList<>();
 
-        String whereClause = DAOTodo.TODO_STATUS + "=?";
-        String[] whereArgs = {DAOTodo.DEFAULT_STATUS};
-        String orderBy = DAOTodo.TABLE_TODO_NAME+"."+DAOTodo.TODO_ID + " ASC";
-        String table = "SELECT * FROM " + DAOTodo.TABLE_TODO_NAME+" INNER JOIN " + DAOTodo.TABLE_TAG_NAME+" ON " + DAOTodo.TABLE_TODO_NAME+"."+ DAOTodo.TODO_TAG+"="+
-                DAOTodo.TABLE_TAG_NAME+"." + DAOTodo.TAG_ID;
+        String query="SELECT * FROM " + DAOTodo.TABLE_TODO_NAME +" INNER JOIN " + DAOTodo.TABLE_TAG_NAME+" ON " + DAOTodo.TABLE_TODO_NAME+"."+DAOTodo.TODO_TAG+"="+
+                DAOTodo.TABLE_TAG_NAME+"."+DAOTodo.TAG_ID + " WHERE " + DAOTodo.TODO_STATUS+"=? ORDER BY " + DAOTodo.TABLE_TODO_NAME+"."+DAOTodo.TODO_ID + " ASC";
+        Cursor cursor=sqLiteDatabase.rawQuery(query,new String[]{DAOTodo.DEFAULT_STATUS});
 
-        Cursor cursor = sqLiteDatabase.query(table, null, whereClause, whereArgs,
-                null, null, orderBy);
 
         while (cursor.moveToNext()){
             Pending pending =new Pending();
@@ -119,15 +115,9 @@ public class DAOTodo extends DAOBase {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<Completed> completeds =new ArrayList<>();
 
-
-        String whereClause = DAOTodo.TODO_STATUS + "=?";
-        String[] whereArgs = {DAOTodo.STATUS_COMPLETED};
-        String orderBy = DAOTodo.TABLE_TODO_NAME+"."+DAOTodo.TODO_ID + " ASC";
-        String table = "SELECT * FROM " + DAOTodo.TABLE_TODO_NAME+" INNER JOIN " + DAOTodo.TABLE_TAG_NAME+" ON " + DAOTodo.TABLE_TODO_NAME+"."+ DAOTodo.TODO_TAG+"="+
-                DAOTodo.TABLE_TAG_NAME+"." + DAOTodo.TAG_ID;
-
-        Cursor cursor = sqLiteDatabase.query(table, null, whereClause, whereArgs,
-                null, null, orderBy);
+        String query="SELECT * FROM " + DAOTodo.TABLE_TODO_NAME +" INNER JOIN " + DAOTodo.TABLE_TAG_NAME+" ON " + DAOTodo.TABLE_TODO_NAME+"."+DAOTodo.TODO_TAG+"="+
+                DAOTodo.TABLE_TAG_NAME+"."+DAOTodo.TAG_ID + " WHERE " + DAOTodo.TODO_STATUS+"=? ORDER BY " + DAOTodo.TABLE_TODO_NAME+"."+DAOTodo.TODO_ID + " ASC";
+        Cursor cursor=sqLiteDatabase.rawQuery(query,new String[]{DAOTodo.STATUS_COMPLETED});
 
         while (cursor.moveToNext()){
             Completed completed =new Completed();
@@ -143,6 +133,7 @@ public class DAOTodo extends DAOBase {
         sqLiteDatabase.close();
         return completeds;
     }
+
 
     // update ghi chú theo todo_id
     public boolean updateTodo(Pending pending){
