@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.thaonote.R;
 import com.example.thaonote.activity.HomeActivity;
-import com.example.thaonote.activity.LoginActivity;
 
 public class WelcomeActivity_4 extends AppCompatActivity {
     private Button next;

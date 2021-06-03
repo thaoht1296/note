@@ -18,19 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
 import com.example.thaonote.activity.TagActivity;
-import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.model.TagsModel;
+import com.example.thaonote.dbhelper.DAOTag;
+import com.example.thaonote.model.Tags;
 
 import java.util.ArrayList;
 
 
 public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
-    private ArrayList<TagsModel> tagsModelModels;
+    private ArrayList<Tags> tlist;
     private Context context;
-    private TagDBHelper tagDBHelper;
+    private DAOTag DAOTag;
 
-    public TagAdapter(ArrayList<TagsModel> tagsModelModels, Context context) {
-        this.tagsModelModels = tagsModelModels;
+    public TagAdapter(ArrayList<Tags> list, Context context) {
+        this.tlist = list;
         this.context = context;
     }
 
@@ -42,10 +42,10 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
 
     @Override
     public void onBindViewHolder(TagDataHolder holder, int position) {
-        final TagsModel tagsModel= tagsModelModels.get(position);
-        holder.tag_title.setText(tagsModel.getTagTitle());
-        tagDBHelper=new TagDBHelper(context);
-        holder.tag_option.setOnClickListener(new View.OnClickListener() {
+        final Tags tags = tlist.get(position);
+        holder.tag_title.setText(tags.getTagTitle());
+        DAOTag =new DAOTag(context);
+        holder.tag_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu popupMenu=new PopupMenu(context,view);
@@ -56,10 +56,10 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.edit:
-                                editTag(tagsModel.getTagID());
+                                editTag(tags.getTagID());
                                 return true;
                             case R.id.delete:
-                                removeTag(tagsModel.getTagID());
+                                deleteTag(tags.getTagID());
                                 return true;
                             default:
                                 return false;
@@ -72,28 +72,27 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
 
     @Override
     public int getItemCount() {
-        return tagsModelModels.size();
+        return tlist.size();
     }
 
     public class TagDataHolder extends RecyclerView.ViewHolder{
         TextView tag_title;
-        ImageView tag_option;
-        public TagDataHolder(View itemView) {
-            super(itemView);
-            tag_title=(TextView)itemView.findViewById(R.id.tag_title);
-            tag_option=(ImageView)itemView.findViewById(R.id.tags_option);
+        ImageView tag_menu;
+        public TagDataHolder(View v) {
+            super(v);
+            tag_title = v.findViewById(R.id.tag_title);
+            tag_menu = v.findViewById(R.id.tag_menu);
         }
     }
 
-    //remove tag
-    private void removeTag(final int tagID){
+    private void deleteTag(final int tagID){
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         builder.setTitle("Xác nhận xóa thẻ");
         builder.setMessage(R.string.tag_delete_dialog_msg);
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(tagDBHelper.removeTag(tagID)){
+                if(DAOTag.deleteTag(tagID)){
                     Toast.makeText(context, "Xóa thẻ thành công!", Toast.LENGTH_SHORT).show();
                     Intent it1 = new Intent(context, TagActivity.class);
                     context.startActivity(it1);
@@ -109,29 +108,28 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
         }).create().show();
     }
 
-    //update tag
     private void editTag(final int tagID){
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         LayoutInflater layoutInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View view = layoutInflater.inflate(R.layout.card_edit_tags,null);
+        View view = layoutInflater.inflate(R.layout.card_edit_tags,null);
         builder.setView(view);
-        final EditText tagEditTitle=view.findViewById(R.id.edit_tag_title);
-        tagEditTitle.setText(tagDBHelper.fetchTagTitle(tagID));
-        final TextView cancel=(TextView)view.findViewById(R.id.cancel);
-        final TextView editNewtag=(TextView)view.findViewById(R.id.edit_new_tag);
 
-        editNewtag.setOnClickListener(new View.OnClickListener() {
+        EditText tagEditTitle=view.findViewById(R.id.edit_tag_title);
+        tagEditTitle.setText(DAOTag.getOneTitle(tagID));
+        TextView cancel = view.findViewById(R.id.cancel);
+        TextView edittag = view.findViewById(R.id.edit_new_tag);
+
+        edittag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String getTagTitle=tagEditTitle.getText().toString();
-                boolean isTagEmpty=tagEditTitle.getText().toString().isEmpty();
-                boolean tagExists=tagDBHelper.tagExists(getTagTitle);
+                String getTagTitle = tagEditTitle.getText().toString();
+                boolean checkTag = DAOTag.checkTag(getTagTitle);
 
-                if(isTagEmpty){
+                if(!getTagTitle.equalsIgnoreCase("") && getTagTitle.length() < 25){
                     tagEditTitle.setError("Yêu cầu tiêu đề thẻ");
-                }else if(tagExists){
+                }else if(checkTag == true){
                     tagEditTitle.setError("Tiêu đề thẻ đã tồn tại");
-                }else if(tagDBHelper.saveTag(new TagsModel(tagID,getTagTitle))){
+                }else if(DAOTag.updateTag(new Tags(tagID,getTagTitle))){
                     Toast.makeText(context, "Lưu thành công!", Toast.LENGTH_SHORT).show();
                     Intent it3 = new Intent(context, TagActivity.class);
                     context.startActivity(it3);
@@ -149,10 +147,9 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagDataHolder> {
         builder.create().show();
     }
 
-    //search filter
-    public void filterTags(ArrayList<TagsModel> newTagsModelModels){
-        tagsModelModels =new ArrayList<>();
-        tagsModelModels.addAll(newTagsModelModels);
+    public void listFilter(ArrayList<Tags> newlist){
+        tlist =new ArrayList<>();
+        tlist.addAll(newlist);
         notifyDataSetChanged();
     }
 }

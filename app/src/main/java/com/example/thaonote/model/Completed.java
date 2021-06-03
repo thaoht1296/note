@@ -2,22 +2,14 @@ package com.example.thaonote.model;
 
 import java.io.Serializable;
 
-public class PendingModel implements Serializable {
+public class Completed implements Serializable {
     private int todoID;
     private String todoTitle,todoContent,todoDate,
             todoTime,todoTag;
 
-    public PendingModel(){}
+    public Completed(){}
 
-    public PendingModel(String todoTitle, String todoContent, String todoTag, String todoDate, String todoTime) {
-        this.todoTitle = todoTitle;
-        this.todoContent = todoContent;
-        this.todoDate = todoDate;
-        this.todoTime = todoTime;
-        this.todoTag = todoTag;
-    }
-
-    public PendingModel(int todoID, String todoTitle, String todoContent, String todoTag, String todoDate, String todoTime) {
+    public Completed(int todoID, String todoTitle, String todoContent, String todoDate, String todoTime, String todoTag) {
         this.todoID = todoID;
         this.todoTitle = todoTitle;
         this.todoContent = todoContent;
@@ -65,7 +57,6 @@ public class PendingModel implements Serializable {
     public void setTodoTime(String todoTime) {
         this.todoTime = todoTime;
     }
-
     public String getTodoTag() {
         return todoTag;
     }

@@ -32,7 +32,7 @@
                     android:layout_gravity="left"
                     android:padding="10dp"/>
                 <ImageView
-                    android:id="@+id/all_tags"
+                    android:id="@+id/img_tags"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_bookmark"
                     android:layout_width="50dp"
@@ -65,14 +65,15 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pending_todos_view"
+        android:id="@+id/revPen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search"
-        android:layout_margin="15dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp" />
 
     <LinearLayout
-        android:id="@+id/no_pending_todo_section"
+        android:id="@+id/no_pending"
         android:orientation="vertical"
         android:visibility="gone"
         android:layout_centerVertical="true"
@@ -81,18 +82,18 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/pending_todos_icon"
+            android:id="@+id/ic_pend"
             android:src="@drawable/ic_article"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/pending_todo_icon_margin"
+            android:layout_margin="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/no_pending_todo_title"
+            android:id="@+id/txt_pend"
             android:text="Không có sẵn"
             android:layout_gravity="center"
-            android:textSize="@dimen/no_pending_todo_title_size"
+            android:textSize="16dp"
             android:textColor="@color/background_yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -100,11 +101,11 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddTodo"
+        android:id="@+id/fab"
         android:src="@drawable/ic_add"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/floating_button_add_todo_margin"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

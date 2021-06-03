@@ -23,7 +23,7 @@
             android:textSize="18dp"
             android:gravity="center" />
         <ImageView
-            android:id="@+id/tags_option"
+            android:id="@+id/tag_menu"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_article"
             android:layout_width="match_parent"

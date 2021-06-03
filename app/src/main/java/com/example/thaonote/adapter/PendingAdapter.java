@@ -25,26 +25,25 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
-import com.example.thaonote.activity.CompletedTodos;
 import com.example.thaonote.activity.MyReceiver;
 import com.example.thaonote.activity.PendingActivity;
-import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.PendingModel;
+import com.example.thaonote.dbhelper.DAOTag;
+import com.example.thaonote.dbhelper.DAOTodo;
+import com.example.thaonote.model.Pending;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.PendingDataHolder>{
-    private ArrayList<PendingModel> pendingModels;
+public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.PendingDataHolder>{
+    private ArrayList<Pending> plist;
     private Context context;
-    private String getTagTitleString;
-    private TagDBHelper tagDBHelper;
-    private TodoDBHelper todoDBHelper;
+    private String getTagTitle;
+    private DAOTag DAOTag;
+    private DAOTodo DAOTodo;
 
-    public PendingTodoAdapter(ArrayList<PendingModel> pendingModels, Context context) {
-        this.pendingModels = pendingModels;
+    public PendingAdapter(ArrayList<Pending> list, Context context) {
+        this.plist = list;
         this.context = context;
     }
 
@@ -56,13 +55,13 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
 
     @Override
     public void onBindViewHolder(PendingDataHolder holder, int position) {
-        todoDBHelper=new TodoDBHelper(context);
-        final PendingModel pendingModel = pendingModels.get(position);
-        holder.todoTitle.setText(pendingModel.getTodoTitle());
-        holder.todoContent.setText(pendingModel.getTodoContent());
-        holder.todoDate.setText(pendingModel.getTodoDate());
-        holder.todoTag.setText(pendingModel.getTodoTag());
-        holder.todoTime.setText(pendingModel.getTodoTime());
+        DAOTodo =new DAOTodo(context);
+        final Pending pending = plist.get(position);
+        holder.todoTitle.setText(pending.getTodoTitle());
+        holder.todoContent.setText(pending.getTodoContent());
+        holder.todoDate.setText(pending.getTodoDate());
+        holder.todoTag.setText(pending.getTodoTag());
+        holder.todoTime.setText(pending.getTodoTime());
         holder.option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,10 +73,10 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.edit:
-                                showDialogEdit(pendingModel.getTodoID());
+                                showDialogEdit(pending.getTodoID());
                                 return true;
                             case R.id.delete:
-                                showDeleteDialog(pendingModel.getTodoID());
+                                showDeleteDialog(pending.getTodoID());
                                 return true;
                             default:
                                 return false;
@@ -89,7 +88,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         holder.makeCompleted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCompletedDialog(pendingModel.getTodoID());
+                showCompletedDialog(pending.getTodoID());
             }
         });
     }
@@ -102,7 +101,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(todoDBHelper.removeTodo(tagID)){
+                if(DAOTodo.removeTodo(tagID)){
                     Toast.makeText(context, "Xóa thành công !", Toast.LENGTH_SHORT).show();
                     Intent it1 = new Intent(context, PendingActivity.class);
                     context.startActivity(it1);
@@ -120,24 +119,24 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
 
     @Override
     public int getItemCount() {
-        return pendingModels.size();
+        return plist.size();
     }
 
     //sửa ghi chú theo id
     private void showDialogEdit(final int todoID){
-        todoDBHelper=new TodoDBHelper(context);
-        tagDBHelper=new TagDBHelper(context);
+        DAOTodo =new DAOTodo(context);
+        DAOTag =new DAOTag(context);
 
-        final AlertDialog.Builder builder=new AlertDialog.Builder(context);
+        AlertDialog.Builder builder=new AlertDialog.Builder(context);
         LayoutInflater layoutInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View view=layoutInflater.inflate(R.layout.activity_edit_pending,null);
+        View view=layoutInflater.inflate(R.layout.activity_edit_pending,null);
         builder.setView(view);
 
-        final EditText todoTitle=view.findViewById(R.id.todo_title);
-        final EditText todoContent=view.findViewById(R.id.todo_content);
-        Spinner todoTags=(Spinner)view.findViewById(R.id.todo_tag);
+        EditText todoTitle = view.findViewById(R.id.todo_title);
+        EditText todoContent = view.findViewById(R.id.todo_content);
+        Spinner todoTags = view.findViewById(R.id.todo_tag);
 
-        ArrayAdapter<String> tagsModelArrayAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item,tagDBHelper.fetchTagStrings());
+        ArrayAdapter<String> tagsModelArrayAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item, DAOTag.getAllTitle());
 
         tagsModelArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -145,7 +144,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         todoTags.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getTagTitleString=adapterView.getItemAtPosition(i).toString();
+                getTagTitle=adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
@@ -153,22 +152,22 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
 
             }
         });
-        final EditText todoDate=view.findViewById(R.id.todo_date);
-        final EditText todoTime=view.findViewById(R.id.todo_time);
+        EditText todoDate=view.findViewById(R.id.todo_date);
+        EditText todoTime=view.findViewById(R.id.todo_time);
 
         //lấy các giá trị từ csdl
-        todoTitle.setText(todoDBHelper.fetchTodoTitle(todoID));
-        todoContent.setText(todoDBHelper.fetchTodoContent(todoID));
-        todoDate.setText(todoDBHelper.fetchTodoDate(todoID));
-        todoTime.setText(todoDBHelper.fetchTodoTime(todoID));
+        todoTitle.setText(DAOTodo.getTodoTitle(todoID));
+        todoContent.setText(DAOTodo.getTodoContent(todoID));
+        todoDate.setText(DAOTodo.getTodoDate(todoID));
+        todoTime.setText(DAOTodo.getTodoTime(todoID));
 
 
-        final Calendar calendar= Calendar.getInstance();
-        final int year=calendar.get(Calendar.YEAR);
-        final int month=calendar.get(Calendar.MONTH);
-        final int day=calendar.get(Calendar.DAY_OF_MONTH);
-        final int hour=calendar.get(Calendar.HOUR);
-        final int minute=calendar.get(Calendar.MINUTE);
+        Calendar calendar= Calendar.getInstance();
+        int year=calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH);
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        int hour=calendar.get(Calendar.HOUR);
+        int minute=calendar.get(Calendar.MINUTE);
 
 
         todoDate.setOnClickListener(new View.OnClickListener() {
@@ -190,10 +189,10 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
             public void onClick(View view) {
                 TimePickerDialog timePickerDialog=new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                    public void onTimeSet(TimePicker timePicker, int x, int y) {
                         Calendar newCalendar= Calendar.getInstance();
-                        newCalendar.set(Calendar.HOUR,i);
-                        newCalendar.set(Calendar.MINUTE,i1);
+                        newCalendar.set(Calendar.HOUR,x);
+                        newCalendar.set(Calendar.MINUTE,y);
                         String timeFormat= DateFormat.getTimeInstance(DateFormat.SHORT).format(newCalendar.getTime());
                         todoTime.setText(timeFormat);
                     }
@@ -208,29 +207,24 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
             @Override
             public void onClick(View view) {
 
-                String getTodoTitle=todoTitle.getText().toString();
-                String getTodoContent=todoContent.getText().toString();
-                int todoTagID=tagDBHelper.fetchTagID(getTagTitleString);
-                String getTodoDate=todoDate.getText().toString();
-                String getTime=todoTime.getText().toString();
+                String getTodoTitle = todoTitle.getText().toString();
+                String getTodoContent = todoContent.getText().toString();
+                int todoTagID = DAOTag.getOneID(getTagTitle);
+                String getTodoDate = todoDate.getText().toString();
+                String getTime = todoTime.getText().toString();
 
+                String datePattern = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
 
-                boolean isTitleEmpty=todoTitle.getText().toString().isEmpty();
-                boolean isContentEmpty=todoContent.getText().toString().isEmpty();
-                boolean isDateEmpty=todoDate.getText().toString().isEmpty();
-                boolean isTimeEmpty=todoTime.getText().toString().isEmpty();
-
-
-                if(isTitleEmpty){
-                    todoTitle.setError("Yêu cầu tiêu đề !");
-                }else if(isContentEmpty){
+                if(getTodoTitle.equalsIgnoreCase("") && getTodoTitle.length() > 50){
+                    todoTitle.setError("Yêu cầu tiêu đề");
+                }else if(getTodoContent.equalsIgnoreCase("") && getTodoContent.length() > 100){
                     todoContent.setError("Yêu cầu nội dung !");
-                }else if(isDateEmpty){
-                    todoDate.setError("Chưa điền ngày tháng !");
-                }else if(isTimeEmpty){
+                }else if(getTodoDate.equalsIgnoreCase("") && getTodoDate.matches(datePattern)){
+                    todoDate.setError("Ngày tháng chưa đúng định dạng !");
+                }else if(getTime.equalsIgnoreCase("")){
                     todoTime.setError("Chưa điền thời gian !");
-                }else if(todoDBHelper.updateTodo(
-                        new PendingModel(todoID,getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime)
+                }else if(DAOTodo.updateTodo(
+                        new Pending(todoID,getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime)
                 )){
                     Toast.makeText(context, "Thêm thành công!", Toast.LENGTH_SHORT).show();
                     Intent it1 = new Intent(context, PendingActivity.class);
@@ -252,9 +246,9 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
 
                     Intent intent = new Intent(context,
                             MyReceiver.class);
-                    intent.putExtra("myAction", "mDoNotify");
-                    intent.putExtra("Title", getTodoTitle);
-                    intent.putExtra("Description", getTodoContent);
+                    intent.putExtra("toDoAction", "toDoNotify");
+                    intent.putExtra("toDoTitle", getTodoTitle);
+                    intent.putExtra("toDoContent", getTodoContent);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                             0, intent, 0);
@@ -282,7 +276,7 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
         builder.setPositiveButton("Hoàn thành", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(todoDBHelper.makeCompleted(tagID)){
+                if(DAOTodo.makeCompleted(tagID)){
                     Intent it1 = new Intent(context, PendingActivity.class);
                     context.startActivity(it1);
                 }
@@ -298,22 +292,22 @@ public class PendingTodoAdapter extends RecyclerView.Adapter<PendingTodoAdapter.
     public class PendingDataHolder extends RecyclerView.ViewHolder {
         TextView todoTitle,todoContent,todoTag,todoDate,todoTime;
         ImageView option,makeCompleted;
-        public PendingDataHolder(View itemView) {
-            super(itemView);
-            todoTitle=(TextView)itemView.findViewById(R.id.pending_todo_title);
-            todoContent=(TextView)itemView.findViewById(R.id.pending_todo_content);
-            todoTag=(TextView)itemView.findViewById(R.id.todo_tag);
-            todoDate=(TextView)itemView.findViewById(R.id.todo_date);
-            todoTime=(TextView)itemView.findViewById(R.id.todo_time);
-            option=(ImageView)itemView.findViewById(R.id.option);
-            makeCompleted=(ImageView)itemView.findViewById(R.id.make_completed);
+        public PendingDataHolder(View view) {
+            super(view);
+            todoTitle = view.findViewById(R.id.pending_todo_title);
+            todoContent = view.findViewById(R.id.pending_todo_content);
+            todoTag = view.findViewById(R.id.todo_tag);
+            todoDate = view.findViewById(R.id.todo_date);
+            todoTime = view.findViewById(R.id.todo_time);
+            option = view.findViewById(R.id.option);
+            makeCompleted = view.findViewById(R.id.make_completed);
         }
     }
 
-    //filter the search
-    public void filterTodos(ArrayList<PendingModel> newPendingModels){
-        pendingModels =new ArrayList<>();
-        pendingModels.addAll(newPendingModels);
+    // filterTodos
+    public void listFilter(ArrayList<Pending> newlist){
+        plist =new ArrayList<>();
+        plist.addAll(newlist);
         notifyDataSetChanged();
     }
 }

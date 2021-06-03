@@ -32,8 +32,114 @@
             </TableRow>
         </TableLayout>
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/prefContainer"
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/pref"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_screen3"
+        android:text="General"
+        android:textSize="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_baseline_auto"
+        android:text="App theme"
+        android:textSize="20dp"
+        android:drawablePadding="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_screen3"
+        android:text="Developer Info"
+        android:textSize="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_contact_page"
+        android:text="Developed by"
+        android:textSize="20dp"
+        android:drawablePadding="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hoàng Thị Thảo"
+        android:layout_marginLeft="65dp"
+        android:padding="5dp"/>
+    <TextView
+        android:id="@+id/txt_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_facebook"
+        android:text="Find on Facebook"
+        android:textSize="20dp"
+        android:drawablePadding="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="facebook.com/thaoht.1296"
+        android:layout_marginLeft="65dp"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/txt_github"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_location_searching"
+        android:text="Find on Github"
+        android:textSize="20dp"
+        android:drawablePadding="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="github.com/thaoht170"
+        android:layout_marginLeft="65dp"
+        android:padding="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_by_email"
+        android:text="Outlook"
+        android:textSize="20dp"
+        android:drawablePadding="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="thaoht.b17a169@stu.ptit.edu.vn"
+        android:layout_marginLeft="65dp"
+        android:padding="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_baseline_android"
+        android:text="App version"
+        android:textSize="20dp"
+        android:drawablePadding="20dp"
+        android:layout_marginLeft="15dp"
+        android:padding="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1.1"
+        android:layout_marginLeft="65dp"
+        android:padding="5dp"/>
+
+
 </LinearLayout>

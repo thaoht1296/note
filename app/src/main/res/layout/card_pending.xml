@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/pending_card_view_margin_left"
-    android:layout_marginRight="@dimen/pending_card_view_margin_right"
-    android:layout_marginTop="@dimen/pending_card_view_margin_top"
-    android:layout_marginBottom="@dimen/pending_card_view_margin_bottom"
-    android:elevation="@dimen/pending_card_view_elevation"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="3dp"
+    android:elevation="3dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
@@ -18,10 +18,10 @@
             android:id="@+id/pending_todo_title"
             android:text="Title"
             android:textSize="20dp"
-            android:layout_marginLeft="@dimen/pending_todo_title_left_margin"
-            android:layout_marginBottom="@dimen/pending_todo_title_bottom_margin"
-            android:layout_marginRight="@dimen/pending_todo_title_right_margin"
-            android:layout_marginTop="@dimen/pending_todo_title_top_margin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,11 +30,11 @@
         <TextView
             android:id="@+id/pending_todo_content"
             android:text="Content"
-            android:layout_marginLeft="@dimen/pending_todo_content_left_margin"
-            android:layout_marginBottom="@dimen/pending_todo_content_bottom_margin"
-            android:layout_marginRight="@dimen/pending_todo_content_right_margin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/pending_todo_title"
-            android:textSize="@dimen/pending_todo_content_text_size"
+            android:textSize="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/purple"/>
@@ -42,15 +42,15 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/todo_option_margin_right"
-            android:layout_marginTop="@dimen/todo_option_margin_top"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/make_completed"
                 android:src="@drawable/ic_done"
-                android:layout_marginRight="@dimen/completd_to_img_margin_right"
+                android:layout_marginRight="20dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
 
@@ -65,32 +65,32 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/pending_todo_info_section_margin_left"
-            android:layout_marginRight="@dimen/pending_todo_info_section_margin_right"
-            android:layout_marginBottom="@dimen/pending_todo_info_section_bottom_margin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_below="@+id/pending_todo_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/todo_tag"
                 android:text="Programing"
-                android:textSize="@dimen/todo_info_section_text_size"
-                android:layout_marginRight="@dimen/todo_info_section_text_size"
+                android:textSize="12sp"
+                android:layout_marginRight="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/purple"/>
             <TextView
                 android:id="@+id/todo_date"
                 android:text="17 Nov, 2021"
-                android:textSize="@dimen/todo_info_section_text_size"
+                android:textSize="12dp"
                 android:textColor="@color/pink4"
-                android:layout_marginRight="@dimen/todo_info_section_margin_right"
+                android:layout_marginRight="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/todo_time"
                 android:text="17:10 AM"
-                android:textSize="@dimen/todo_info_section_text_size"
+                android:textSize="12sp"
                 android:textColor="@color/pink4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

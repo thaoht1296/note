@@ -14,17 +14,16 @@
         </activity>
         <!-- activity chức năng -->
         <activity android:name=".activity.TagActivity" />
-        <activity android:name=".activity.CompletedTodos" />
-        <activity android:name=".activity.AppSettings" />
+        <activity android:name=".activity.CompletedActivity" />
+        <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PendingActivity" />
-        <activity android:name=".activity.ProfileActivity" />
+
         <activity android:name=".graph.BarChartActivity"></activity> <!-- activity trang chu -->
         <activity android:name=".MainActivity" /> <!-- activity đăng nhập, đăng kí, giới thiệu -->
         <activity android:name=".activity.HomeActivity">
 
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity" />
+
         <activity android:name=".welcome.WelcomeActivity_1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

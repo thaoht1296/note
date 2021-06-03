@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.example.thaonote.R;
 import com.example.thaonote.activity.HomeActivity;
-import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.dbhelper.TodoDBHelper;
+import com.example.thaonote.dbhelper.DAOTodo;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
@@ -23,7 +22,7 @@ public class PieChartActivity extends AppCompatActivity {
     private PieChart pieChart;
     private ImageView back1;
 
-    private TodoDBHelper todoDBHelper;
+    private DAOTodo DAOTodo;
 
 
     @Override
@@ -37,7 +36,7 @@ public class PieChartActivity extends AppCompatActivity {
         pieChart = findViewById(R.id.piechart);
 
 
-        todoDBHelper=new TodoDBHelper(this);
+        DAOTodo =new DAOTodo(this);
 
         back1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +47,8 @@ public class PieChartActivity extends AppCompatActivity {
             }
         });
 
-        tvht.setText(Integer.toString(todoDBHelper.countCompletedTodos()));
-        tvcht.setText(Integer.toString(todoDBHelper.countTodos()));
+        tvht.setText(Integer.toString(DAOTodo.countCompletedTodos()));
+        tvcht.setText(Integer.toString(DAOTodo.countTodos()));
 
         pieChart.addPieSlice(
                 new PieModel(

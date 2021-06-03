@@ -63,7 +63,7 @@
         android:background="@drawable/round_border"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/completed_todos_view"
+        android:id="@+id/revCompletes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/search"
@@ -73,7 +73,7 @@
         android:layout_marginBottom="15dp" />
 
     <LinearLayout
-        android:id="@+id/no_completed_todo_section"
+        android:id="@+id/no_completed"
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
@@ -81,17 +81,17 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/completed_todos_icon"
+            android:id="@+id/ic_complete"
             android:src="@drawable/ic_complete_2"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/completed_todo_icon_margin"
+            android:layout_margin="15dp"
             android:layout_width="100dp"
             android:layout_height="100dp" />
         <TextView
-            android:id="@+id/no_completed_todo_title"
+            android:id="@+id/txtComplete"
             android:text="Chưa có ghi chú hoàn thành"
             android:layout_gravity="center"
-            android:textSize="@dimen/no_completed_todo_title_size"
+            android:textSize="16dp"
             android:textColor="@color/background_yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

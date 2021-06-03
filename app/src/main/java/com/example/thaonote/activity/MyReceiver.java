@@ -17,13 +17,13 @@ import com.example.thaonote.R;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MyReceiver extends BroadcastReceiver {
-    final String CHANNEL_ID = "101";
+    final String CHANNEL_ID = "170";
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent.getStringExtra("myAction") != null &&
-                intent.getStringExtra("myAction").equals("mDoNotify")
-                && intent.getStringExtra("Title")!=null
-                && intent.getStringExtra("Description")!=null ){
+        if(intent.getStringExtra("toDoAction") != null &&
+                intent.getStringExtra("toDoAction").equals("toDoNotify")
+                && intent.getStringExtra("toDoTitle")!=null
+                && intent.getStringExtra("toDoContent")!=null ){
             Log.e("Rev","rev");
             NotificationManager manager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -39,8 +39,8 @@ public class MyReceiver extends BroadcastReceiver {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(context,CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setContentTitle(intent.getStringExtra("Title"))
-                    .setContentText(intent.getStringExtra("Description"))
+                    .setContentTitle(intent.getStringExtra("toDoTitle"))
+                    .setContentText(intent.getStringExtra("toDoContent"))
                     .setColor(Color.RED)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setAutoCancel(true);

@@ -56,13 +56,13 @@
         android:background="@drawable/round_border"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/viewAllTags"
+        android:id="@+id/revTag"
         android:layout_below="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp" />
     <LinearLayout
-        android:id="@+id/no_tags_available"
+        android:id="@+id/no_tags"
         android:orientation="vertical"
         android:visibility="gone"
         android:layout_centerHorizontal="true"
@@ -70,16 +70,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/no_tags_icon"
+            android:id="@+id/ic_notags"
             android:layout_gravity="center"
             android:src="@drawable/ic_bookmark_border"
             android:layout_width="100dp"
             android:layout_height="100dp" />
 
         <TextView
-            android:id="@+id/no_tags_text"
+            android:id="@+id/txt_notags"
             android:layout_gravity="center"
-            android:textSize="@dimen/no_tags_available_size"
+            android:textSize="16dp"
             android:text="Không có sẵn"
             android:textColor="@color/background_yellow"
             android:layout_width="wrap_content"
@@ -87,11 +87,11 @@
 
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddTag"
+        android:id="@+id/fabAdd"
         android:src="@drawable/ic_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/floating_button_add_todo_margin"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

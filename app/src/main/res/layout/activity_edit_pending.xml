@@ -14,21 +14,21 @@
             android:text="GHI CHÚ"
             android:textSize="24dp"
             android:textStyle="bold"
-            android:padding="@dimen/add_new_todo_dialog_title_padding"
+            android:padding="15dp"
             android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
             android:orientation="vertical"
-            android:padding="@dimen/new_todo_container_padding"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/todo_title"
                 android:drawableLeft="@drawable/ic_edit"
-                android:drawablePadding="@dimen/drawable_input_padding"
-                android:padding="@dimen/input_padding"
+                android:drawablePadding="15dp"
+                android:padding="15dp"
                 android:hint="Nhập tiêu đề"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,8 +38,8 @@
            <EditText
                 android:id="@+id/todo_content"
                 android:drawableLeft="@drawable/ic_edit"
-                android:drawablePadding="@dimen/drawable_input_padding"
-                android:padding="@dimen/input_padding"
+               android:drawablePadding="15dp"
+               android:padding="15dp"
                 android:hint="Nhập nội dung"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,8 +60,8 @@
             <EditText
                 android:id="@+id/todo_date"
                 android:drawableLeft="@drawable/ic_calendar2"
-                android:drawablePadding="@dimen/drawable_input_padding"
-                android:padding="@dimen/input_padding"
+                android:drawablePadding="15dp"
+                android:padding="15dp"
                 android:hint="Nhập ngày tháng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,8 +71,8 @@
             <EditText
                 android:id="@+id/todo_time"
                 android:drawableLeft="@drawable/ic_time"
-                android:drawablePadding="@dimen/drawable_input_padding"
-                android:padding="@dimen/input_padding"
+                android:drawablePadding="15dp"
+                android:padding="15dp"
                 android:hint="Nhập thời gian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,10 +81,10 @@
 
             <LinearLayout
                 android:layout_gravity="right"
-                android:layout_marginRight="@dimen/todo_dialog_linear_margin_right"
+                android:layout_marginRight="15dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/todo_dialog_linear_margin_top"
-                android:layout_marginBottom="@dimen/todo_dialog_linear_margin_bottom"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/add_new_todo"
-                    android:layout_marginLeft="@dimen/todo_dialog_add_margin_left"
+                    android:layout_marginLeft="15dp"
                     android:text="Lưu"
                     android:textColor="@color/white"
                     android:textSize="24dp"

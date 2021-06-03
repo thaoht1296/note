@@ -2,33 +2,33 @@ package com.example.thaonote.model;
 
 import java.io.Serializable;
 
-public class TagsModel implements Serializable {
+public class Tags implements Serializable {
 
     private int tagID;
     private String tagTitle;
 
     private int tagUser;
 
-    public TagsModel() {
+    public Tags() {
     }
 
-    public TagsModel(int tagID, String tagTitle) {
+    public Tags(int tagID, String tagTitle) {
         this.tagID = tagID;
         this.tagTitle = tagTitle;
     }
 
-    public TagsModel(int tagID, String tagTitle, int tagUser) {
+    public Tags(int tagID, String tagTitle, int tagUser) {
         this.tagID = tagID;
         this.tagTitle = tagTitle;
         this.tagUser = tagUser;
     }
 
-    public TagsModel(String tagTitle, int tagUser) {
+    public Tags(String tagTitle, int tagUser) {
         this.tagTitle = tagTitle;
         this.tagUser = tagUser;
     }
 
-    public TagsModel(String tagTitle) {
+    public Tags(String tagTitle) {
         this.tagTitle = tagTitle;
     }
 

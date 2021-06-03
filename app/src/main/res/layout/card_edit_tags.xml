@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/edit_new_tag"
-                android:layout_marginLeft="@dimen/edit_tag_dialog_add_margin_left"
+                android:layout_marginLeft="14dp"
                 android:text="Lưu"
                 android:textSize="20dp"
                 android:textColor="@color/white"

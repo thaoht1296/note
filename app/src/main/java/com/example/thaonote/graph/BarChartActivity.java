@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import com.example.thaonote.R;
 
 import com.example.thaonote.activity.HomeActivity;
-import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.dbhelper.TodoDBHelper;
+import com.example.thaonote.dbhelper.DAOTag;
+import com.example.thaonote.dbhelper.DAOTodo;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -29,8 +29,8 @@ public class BarChartActivity extends AppCompatActivity {
     private BarDataSet barDataSet;
     private ArrayList barEntries;
 
-    private TodoDBHelper todoDBHelper;
-    private TagDBHelper tagDBHelper;
+    private DAOTodo DAOTodo;
+    private DAOTag DAOTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class BarChartActivity extends AppCompatActivity {
         barChart = findViewById(R.id.barchart);
         back1 = findViewById(R.id.back1);
 
-        tagDBHelper=new TagDBHelper(this);
-        todoDBHelper=new TodoDBHelper(this);
+        DAOTag =new DAOTag(this);
+        DAOTodo =new DAOTodo(this);
 
 
         back1.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class BarChartActivity extends AppCompatActivity {
 
     private void getEntries() {
         barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1f, todoDBHelper.countCompletedTodos()));
-        barEntries.add(new BarEntry(2f, todoDBHelper.countTodos()));
+        barEntries.add(new BarEntry(1f, DAOTodo.countCompletedTodos()));
+        barEntries.add(new BarEntry(2f, DAOTodo.countTodos()));
     }
 }

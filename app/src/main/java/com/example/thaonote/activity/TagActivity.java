@@ -19,20 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
 import com.example.thaonote.adapter.TagAdapter;
-import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.dbhelper.UserDBHelper;
-import com.example.thaonote.model.TagsModel;
+import com.example.thaonote.dbhelper.DAOTag;
+import com.example.thaonote.model.Tags;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class TagActivity extends AppCompatActivity implements View.OnClickListener{
-    private RecyclerView allTags;
-    private ArrayList<TagsModel> tagsModelModels;
+    private RecyclerView revTag;
+    private ArrayList<Tags> tlist;
     private TagAdapter tagAdapter;
     private GridLayoutManager gridLayoutManager;
-    private FloatingActionButton fabAddTag;
-    private TagDBHelper tagDBHelper;
+    private FloatingActionButton fabAdd;
+    private DAOTag DAOTag;
     private LinearLayout linearLayout;
     private ImageView setting, back1;
     private EditText search;
@@ -46,24 +45,24 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         initView();
 
 
-        fabAddTag.setOnClickListener(this::onClick);
+        fabAdd.setOnClickListener(this::onClick);
         setting.setOnClickListener(this::onClick);
         back1.setOnClickListener(this::onClick);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt = search.getText().toString();
-                txt = txt.toLowerCase();
-                if (!txt.equalsIgnoreCase("")) {
-                    ArrayList<TagsModel> newTagsModelModels = new ArrayList<>();
-                    for(TagsModel tagsModel: tagsModelModels){
-                        String tagTitle=tagsModel.getTagTitle().toLowerCase();
-                        if(tagTitle.contains(txt)){
-                            newTagsModelModels.add(tagsModel);
+                String txt_search = search.getText().toString().trim();
+                txt_search = txt_search.toLowerCase();
+                if (!txt_search.equalsIgnoreCase("")) {
+                    ArrayList<Tags> newTagsModels = new ArrayList<>();
+                    for(Tags tags : tlist){
+                        String tagTitle= tags.getTagTitle().toLowerCase();
+                        if(tagTitle.contains(txt_search)){
+                            newTagsModels.add(tags);
                         }
                     }
-                    tagAdapter.filterTags(newTagsModelModels);
+                    tagAdapter.listFilter(newTagsModels);
                     tagAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getApplicationContext(), "no search", Toast.LENGTH_SHORT).show();
@@ -74,23 +73,25 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     public void initView(){
-        allTags=(RecyclerView)findViewById(R.id.viewAllTags);
-        linearLayout=(LinearLayout)findViewById(R.id.no_tags_available);
-        tagDBHelper=new TagDBHelper(this);
-        if(tagDBHelper.countTags()==0){
-            linearLayout.setVisibility(View.VISIBLE);
-            allTags.setVisibility(View.GONE);
-        }else{
-            allTags.setVisibility(View.VISIBLE);
-            tagsModelModels = new ArrayList<>();
-            tagsModelModels = tagDBHelper.fetchTags();
-            tagAdapter=new TagAdapter(tagsModelModels,this);
+        revTag=(RecyclerView)findViewById(R.id.revTag);
+        linearLayout=(LinearLayout)findViewById(R.id.no_tags);
+        DAOTag =new DAOTag(this);
+        if(DAOTag.countTags() > 0){
+            revTag.setVisibility(View.VISIBLE);
+            tlist = new ArrayList<>();
+            tlist = DAOTag.getAll();
+            tagAdapter=new TagAdapter(tlist,this);
             linearLayout.setVisibility(View.GONE);
+
+
+        }else{
+            linearLayout.setVisibility(View.VISIBLE);
+            revTag.setVisibility(View.GONE);
         }
         gridLayoutManager=new GridLayoutManager(this, 2);
-        allTags.setAdapter(tagAdapter);
-        allTags.setLayoutManager(gridLayoutManager);
-        fabAddTag = (FloatingActionButton)findViewById(R.id.fabAddTag);
+        revTag.setAdapter(tagAdapter);
+        revTag.setLayoutManager(gridLayoutManager);
+        fabAdd = (FloatingActionButton)findViewById(R.id.fabAdd);
 
 
         setting = findViewById(R.id.settings);
@@ -103,11 +104,11 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.fabAddTag:
+            case R.id.fabAdd:
                 showNewTagDialog();
                 break;
             case R.id.settings:
-                Intent tag_setting = new Intent(this, AppSettings.class);
+                Intent tag_setting = new Intent(this, SettingActivity.class);
                 startActivity(tag_setting);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
@@ -133,19 +134,16 @@ public class TagActivity extends AppCompatActivity implements View.OnClickListen
         addNewtag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String getTagTitle=tagTitle.getText().toString();
-                boolean isTagEmpty=tagTitle.getText().toString().isEmpty();
-                boolean tagExists=tagDBHelper.tagExists(getTagTitle);
+                String getTagTitle=tagTitle.getText().toString().trim();
+                boolean checkTag = DAOTag.checkTag(getTagTitle);
 
-                // them cho nguoi dung
-//                int userID = userDBHelper.fetchUserID(username);
 
-                if(isTagEmpty){
+                if(getTagTitle.equalsIgnoreCase("") && getTagTitle.length() > 25){
                     tagTitle.setError("Yêu cầu tiêu đề thẻ!");
-                }else if(tagExists){
+                }else if(checkTag == true){
                     tagTitle.setError("Tiêu đề đã tồn tại!");
                 }else {
-                    if(tagDBHelper.addNewTag(new TagsModel(getTagTitle))){
+                    if(DAOTag.add(new Tags(getTagTitle))){
 
                         Intent tagIntent = new Intent(TagActivity.this,TagActivity.class);
                         Toast.makeText(TagActivity.this, "Thêm thẻ thành công", Toast.LENGTH_SHORT).show();

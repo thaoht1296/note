@@ -28,10 +28,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
-import com.example.thaonote.adapter.PendingTodoAdapter;
-import com.example.thaonote.dbhelper.TagDBHelper;
-import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.PendingModel;
+import com.example.thaonote.adapter.PendingAdapter;
+import com.example.thaonote.dbhelper.DAOTag;
+import com.example.thaonote.dbhelper.DAOTodo;
+import com.example.thaonote.model.Pending;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.DateFormat;
@@ -39,16 +39,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PendingActivity extends AppCompatActivity implements View.OnClickListener {
-    private RecyclerView pendingTodos;
+    private RecyclerView revPend;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<PendingModel> pendingModels;
-    private PendingTodoAdapter pendingTodoAdapter;
-    private FloatingActionButton addNewTodo;
-    private TagDBHelper tagDBHelper;
+    private ArrayList<Pending> plist;
+    private PendingAdapter pendingAdapter;
+    private FloatingActionButton fabAdd;
+    private DAOTag DAOTag;
     private String getTagTitleString;
-    private TodoDBHelper todoDBHelper;
+    private DAOTodo DAOTodo;
     private LinearLayout linearLayout;
-    private ImageView completed, all_tags, back1;
+    private ImageView completed, img_tag, back1;
 
     private EditText search;
 
@@ -59,9 +59,9 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_pending);
         initView();
 
-        addNewTodo.setOnClickListener(this::onClick);
+        fabAdd.setOnClickListener(this::onClick);
         completed.setOnClickListener(this::onClick);
-        all_tags.setOnClickListener(this::onClick);
+        img_tag.setOnClickListener(this::onClick);
         back1.setOnClickListener(this::onClick);
 
 
@@ -69,68 +69,70 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt = search.getText().toString();
-                txt = txt.toLowerCase();
-                if (!txt.equalsIgnoreCase("")) {
-                    ArrayList<PendingModel> newPendingModels =new ArrayList<>();
-                    for(PendingModel pendingModel : pendingModels){
-                        String getTodoTitle= pendingModel.getTodoTitle().toLowerCase();
-                        String getTodoContent= pendingModel.getTodoContent().toLowerCase();
-                        String getTodoTag= pendingModel.getTodoTag().toLowerCase();
+                String txt_search = search.getText().toString().trim();
+                txt_search = txt_search.toLowerCase();
+                if (!txt_search.equalsIgnoreCase("")) {
+                    ArrayList<Pending> newPendings =new ArrayList<>();
+                    for(Pending pending : plist){
+                        String getTodoTitle= pending.getTodoTitle().toLowerCase();
+                        String getTodoContent= pending.getTodoContent().toLowerCase();
+                        String getTodoTag= pending.getTodoTag().toLowerCase();
 
-                        if(getTodoTitle.contains(txt) || getTodoContent.contains(txt) || getTodoTag.contains(txt)){
-                            newPendingModels.add(pendingModel);
+                        if(getTodoTitle.contains(txt_search) || getTodoContent.contains(txt_search) || getTodoTag.contains(txt_search)){
+                            newPendings.add(pending);
                         }
                     }
-                    pendingTodoAdapter.filterTodos(newPendingModels);
-                    pendingTodoAdapter.notifyDataSetChanged();
+                    pendingAdapter.listFilter(newPendings);
+                    pendingAdapter.notifyDataSetChanged();
                 }
             }
         });
     }
 
     public void initView(){
-        pendingTodos = findViewById(R.id.pending_todos_view);
-        linearLayout= findViewById(R.id.no_pending_todo_section);
-        tagDBHelper=new TagDBHelper(this);
-        todoDBHelper=new TodoDBHelper(this);
+        revPend = findViewById(R.id.revPen);
+        linearLayout= findViewById(R.id.no_pending);
+        DAOTag = new DAOTag(this);
+        DAOTodo = new DAOTodo(this);
 
-        if(todoDBHelper.countTodos()==0){
-            linearLayout.setVisibility(View.VISIBLE);
-            pendingTodos.setVisibility(View.GONE);
+        if(DAOTodo.countNotCompleted() > 0){
+            plist =new ArrayList<>();
+            plist = DAOTodo.getAllTodos();
+            pendingAdapter =new PendingAdapter(plist,this);
+
         }else{
-            pendingModels =new ArrayList<>();
-            pendingModels =todoDBHelper.fetchAllTodos();
-            pendingTodoAdapter=new PendingTodoAdapter(pendingModels,this);
+            linearLayout.setVisibility(View.VISIBLE);
+            revPend.setVisibility(View.GONE);
         }
+
         linearLayoutManager=new LinearLayoutManager(this);
-        pendingTodos.setAdapter(pendingTodoAdapter);
-        pendingTodos.setLayoutManager(linearLayoutManager);
-        addNewTodo= findViewById(R.id.fabAddTodo);
+        revPend.setAdapter(pendingAdapter);
+        revPend.setLayoutManager(linearLayoutManager);
+        fabAdd= findViewById(R.id.fab);
         search = findViewById(R.id.search);
         completed = findViewById(R.id.completed);
-        all_tags = findViewById(R.id.all_tags);
+        img_tag = findViewById(R.id.img_tags);
         back1 = findViewById(R.id.back1);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.fabAddTodo:
-                if(tagDBHelper.countTags()==0){
+            case R.id.fab:
+                if(DAOTag.countTags()==0){
                     showDialog();
                 }else{
                     showNewTodoDialog();
                 }
                 break;
-            case R.id.all_tags:
+            case R.id.img_tags:
                 Intent pend_tag = new Intent(this, TagActivity.class);
                 startActivity(pend_tag);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 //                Toast.makeText(this, "thaodebug", Toast.LENGTH_LONG).show();
                 break;
             case R.id.completed:
-                Intent pend_com = new Intent(this,CompletedTodos.class);
+                Intent pend_com = new Intent(this, CompletedActivity.class);
                 startActivity(pend_com);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
@@ -182,7 +184,7 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
 
 
         // lưu trữ all tags title
-        ArrayAdapter<String> tagsModelArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,tagDBHelper.fetchTagStrings());
+        ArrayAdapter<String> tagsModelArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, DAOTag.getAllTitle());
 
         // cài đặt view cho spinner
         tagsModelArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -211,7 +213,6 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         todoDate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
                     }
-
                 },year,month,day);
                 datePickerDialog.show();
             }
@@ -223,9 +224,9 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(View view) {
                 TimePickerDialog timePickerDialog=new TimePickerDialog(PendingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                        calendar.set(Calendar.HOUR_OF_DAY,i);
-                        calendar.set(Calendar.MINUTE,i1);
+                    public void onTimeSet(TimePicker timePicker, int x, int y) {
+                        calendar.set(Calendar.HOUR_OF_DAY,x);
+                        calendar.set(Calendar.MINUTE,y);
                         String timeFormat= DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
                         todoTime.setText(timeFormat);
                     }
@@ -233,8 +234,8 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
                 timePickerDialog.show();
             }
         });
-        TextView cancel = (TextView)view.findViewById(R.id.cancel);
-        TextView addTodo = (TextView)view.findViewById(R.id.add_new_todo);
+        TextView cancel = view.findViewById(R.id.cancel);
+        TextView addTodo = view.findViewById(R.id.add_new_todo);
 
         addTodo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,27 +243,22 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
 
                 String getTodoTitle=todoTitle.getText().toString();
                 String getTodoContent=todoContent.getText().toString();
-                int todoTagID=tagDBHelper.fetchTagID(getTagTitleString);
+                int todoTagID= DAOTag.getOneID(getTagTitleString);
                 String getTodoDate=todoDate.getText().toString();
                 String getTime=todoTime.getText().toString();
 
-                //kiểm tra dữ liệu có null ko
-                boolean isTitleEmpty=todoTitle.getText().toString().isEmpty();
-                boolean isContentEmpty=todoContent.getText().toString().isEmpty();
-                boolean isDateEmpty=todoDate.getText().toString().isEmpty();
-                boolean isTimeEmpty=todoTime.getText().toString().isEmpty();
+                String datePattern = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
 
-                //thêm ghi chú khi thỏa mãn các điều kiện
-                if(isTitleEmpty){
+                if(getTodoTitle.equalsIgnoreCase("") && getTodoTitle.length() > 50){
                     todoTitle.setError("Yêu cầu tiêu đề");
-                }else if(isContentEmpty){
+                }else if(getTodoContent.equalsIgnoreCase("") && getTodoContent.length() > 100){
                     todoContent.setError("Yêu cầu nội dung !");
-                }else if(isDateEmpty){
-                    todoDate.setError("Chưa điền ngày tháng !");
-                }else if(isTimeEmpty){
+                }else if(getTodoDate.equalsIgnoreCase("") && getTodoDate.matches(datePattern)){
+                    todoDate.setError("Ngày tháng chưa đúng định dạng !");
+                }else if(getTime.equalsIgnoreCase("")){
                     todoTime.setError("Chưa điền thời gian !");
-                }else if(todoDBHelper.addNewTodo(
-                        new PendingModel(getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime))){
+                }else if(DAOTodo.add(
+                        new Pending(getTodoTitle,getTodoContent, String.valueOf(todoTagID),getTodoDate,getTime))){
 
                     Toast.makeText(PendingActivity.this, "Thêm thành công!", Toast.LENGTH_SHORT).show();
 
@@ -284,9 +280,9 @@ public class PendingActivity extends AppCompatActivity implements View.OnClickLi
 
                     Intent intent = new Intent(PendingActivity.this,
                             MyReceiver.class);
-                    intent.putExtra("myAction", "mDoNotify");
-                    intent.putExtra("Title", getTodoTitle);
-                    intent.putExtra("Description", getTodoContent);
+                    intent.putExtra("toDoAction", "toDoNotify");
+                    intent.putExtra("toDoTitle", getTodoTitle);
+                    intent.putExtra("toDoContent", getTodoContent);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(PendingActivity.this,
                             0, intent, 0);

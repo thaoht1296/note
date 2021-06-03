@@ -15,19 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thaonote.R;
-import com.example.thaonote.adapter.CompletedTodoAdapter;
-import com.example.thaonote.dbhelper.TodoDBHelper;
-import com.example.thaonote.model.CompletedModel;
+import com.example.thaonote.adapter.CompletedAdapter;
+import com.example.thaonote.dbhelper.DAOTodo;
+import com.example.thaonote.model.Completed;
 
 import java.util.ArrayList;
 
-public class CompletedTodos extends AppCompatActivity implements View.OnClickListener {
-    private RecyclerView completedTodos;
+public class CompletedActivity extends AppCompatActivity implements View.OnClickListener {
+    private RecyclerView revCompletes;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<CompletedModel> completedModels;
-    private CompletedTodoAdapter completedTodoAdapter;
+    private ArrayList<Completed> clist;
+    private CompletedAdapter completedAdapter;
     private LinearLayout linearLayout;
-    private TodoDBHelper todoDBHelper;
+    private DAOTodo DAOTodo;
     private ImageView delete, settings, back1;
 
     private EditText search;
@@ -48,43 +48,44 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt = search.getText().toString();
-                txt = txt.toLowerCase();
-                if (!txt.equalsIgnoreCase("")) {
-                    ArrayList<CompletedModel> newCompletedModels =new ArrayList<>();
-                    for(CompletedModel completedModel : completedModels){
-                        String getTodoTitle= completedModel.getTodoTitle();
-                        String getTodoContent= completedModel.getTodoContent();
-                        String getTodoTag= completedModel.getTodoTag();
+                String txt_search = search.getText().toString().trim();
+                txt_search = txt_search.toLowerCase();
+                if (!txt_search.equalsIgnoreCase("")) {
+                    ArrayList<Completed> newCompleteds =new ArrayList<>();
+                    for(Completed completed : clist){
+                        String getTodoTitle= completed.getTodoTitle();
+                        String getTodoContent= completed.getTodoContent();
+                        String getTodoTag= completed.getTodoTag();
 
-                        if(getTodoTitle.contains(txt) || getTodoContent.contains(txt) || getTodoTag.contains(txt)){
-                            newCompletedModels.add(completedModel);
+                        if(getTodoTitle.contains(txt_search) || getTodoContent.contains(txt_search) || getTodoTag.contains(txt_search)){
+                            newCompleteds.add(completed);
                         }
                     }
-                    completedTodoAdapter.filterCompletedTodos(newCompletedModels);
-                    completedTodoAdapter.notifyDataSetChanged();
+                    completedAdapter.listFilter(newCompleteds);
+                    completedAdapter.notifyDataSetChanged();
                 }
             }
         });
     }
 
     public void initView(){
-        completedTodos=(RecyclerView)findViewById(R.id.completed_todos_view);
-        todoDBHelper=new TodoDBHelper(this);
-        linearLayout=(LinearLayout)findViewById(R.id.no_completed_todo_section) ;
-        if(todoDBHelper.countCompletedTodos()==0){
-            linearLayout.setVisibility(View.VISIBLE);
-            completedTodos.setVisibility(View.GONE);
-        }else{
+        revCompletes = findViewById(R.id.revCompletes);
+        DAOTodo = new DAOTodo(this);
+        linearLayout=findViewById(R.id.no_completed) ;
+        if(DAOTodo.countCompleted() > 0){
             linearLayout.setVisibility(View.GONE);
-            completedTodos.setVisibility(View.VISIBLE);
-            completedModels =new ArrayList<>();
-            completedModels =todoDBHelper.fetchCompletedTodos();
-            completedTodoAdapter=new CompletedTodoAdapter(completedModels,this);
+            revCompletes.setVisibility(View.VISIBLE);
+            clist =new ArrayList<>();
+            clist = DAOTodo.getAllCompleted();
+            completedAdapter =new CompletedAdapter(clist,this);
+
+        }else{
+            linearLayout.setVisibility(View.VISIBLE);
+            revCompletes.setVisibility(View.GONE);
         }
         linearLayoutManager=new LinearLayoutManager(this);
-        completedTodos.setAdapter(completedTodoAdapter);
-        completedTodos.setLayoutManager(linearLayoutManager);
+        revCompletes.setAdapter(completedAdapter);
+        revCompletes.setLayoutManager(linearLayoutManager);
 
         search = findViewById(R.id.search);
         settings = findViewById(R.id.settings);
@@ -99,7 +100,7 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
                 deleteDialog();
                 break;
             case R.id.settings:
-                Intent com_set = new Intent(this,AppSettings.class);
+                Intent com_set = new Intent(this, SettingActivity.class);
                 startActivity(com_set);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
@@ -119,16 +120,16 @@ public class CompletedTodos extends AppCompatActivity implements View.OnClickLis
         builder.setPositiveButton("Xóa tất cả", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(todoDBHelper.removeCompletedTodos()){
-                    Intent com = new Intent(CompletedTodos.this, CompletedTodos.class);
+                if(DAOTodo.removeCompletedTodos()){
+                    Intent com = new Intent(CompletedActivity.this, CompletedActivity.class);
                     startActivity(com);
-                    Toast.makeText(CompletedTodos.this, "Xóa tất cả ghi chú hoàn thành thành công !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CompletedActivity.this, "Xóa tất cả ghi chú hoàn thành thành công !", Toast.LENGTH_SHORT).show();
                 }
             }
         }).setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(CompletedTodos.this, "Ghi chú chưa được xóa !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CompletedActivity.this, "Ghi chú chưa được xóa !", Toast.LENGTH_SHORT).show();
             }
         }).create().show();
     }

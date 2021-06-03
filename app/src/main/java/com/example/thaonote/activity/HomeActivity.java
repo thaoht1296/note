@@ -3,23 +3,15 @@ package com.example.thaonote.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.thaonote.R;
-import com.example.thaonote.dbhelper.UserDBHelper;
-import com.example.thaonote.graph.BarChartActivity;
 import com.example.thaonote.graph.PieChartActivity;
-import com.example.thaonote.model.User;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -67,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_completes:
-                Intent home_comp = new Intent(this, CompletedTodos.class);
+                Intent home_comp = new Intent(this, CompletedActivity.class);
                 startActivity(home_comp);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
@@ -77,7 +69,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
             case R.id.home_settings:
-                Intent home_set = new Intent(this, AppSettings.class);
+                Intent home_set = new Intent(this, SettingActivity.class);
                 startActivity(home_set);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 break;
