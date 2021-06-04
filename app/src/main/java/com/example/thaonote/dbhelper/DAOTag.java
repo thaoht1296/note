@@ -44,7 +44,7 @@ public class DAOTag extends DAOBase {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String whereClause = "tag_title = ?";
         String[] whereArgs = {tagTitle};
-        String[] tableColumns = new String[] {DAOTag.TAG_TITLE};
+        String[] tableColumns = {DAOTag.TAG_TITLE};
         Cursor rs = sqLiteDatabase.query("thao_tag", tableColumns, whereClause, whereArgs,
                 null, null, null);
         return (rs.getCount()>0)?true:false;
@@ -54,7 +54,7 @@ public class DAOTag extends DAOBase {
     public int countTags(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        String[] tableColumns = new String[] {DAOTag.TAG_ID};
+        String[] tableColumns = {DAOTag.TAG_ID};
 
         Cursor rs = sqLiteDatabase.query(DAOTag.TABLE_TAG_NAME, tableColumns, null, null, null, null,null);
         return rs.getCount();
@@ -102,7 +102,8 @@ public class DAOTag extends DAOBase {
     public ArrayList<String> getAllTitle(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         ArrayList<String> tagsModels=new ArrayList<>();
-        String[] tableColumns = new String[] {DAOTag.TAG_TITLE};
+        String[] tableColumns = {DAOTag.TAG_TITLE};
+
         Cursor cursor = sqLiteDatabase.query(DAOTag.TABLE_TAG_NAME, tableColumns, null,
                 null, null, null, null);
         while (cursor.moveToNext()){
@@ -119,7 +120,7 @@ public class DAOTag extends DAOBase {
 
         String[] tableColumns = new String[] {DAOTag.TAG_TITLE};
         String whereClause = "tag_id = ?";
-        String[] whereArgs = new String[]{String.valueOf(tagID)};
+        String[] whereArgs = {String.valueOf(tagID)};
 
         Cursor cursor = sqLiteDatabase.query(DAOTag.TABLE_TAG_NAME, tableColumns,
                 whereClause, whereArgs, null, null, null);
@@ -136,7 +137,7 @@ public class DAOTag extends DAOBase {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] tableColumns = new String[] {DAOTag.TAG_ID};
         String whereClause = "tag_title = ?";
-        String[] whereArgs = new String[]{String.valueOf(tagTitle)};
+        String[] whereArgs = {String.valueOf(tagTitle)};
 
         Cursor cursor = sqLiteDatabase.query(DAOTag.TABLE_TAG_NAME, tableColumns,
                 whereClause, whereArgs, null, null, null);
